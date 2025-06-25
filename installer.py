@@ -141,7 +141,7 @@ sudo("echo mysql-server mysql-server/root_password_again password rachel | sudo 
 sudo("apt-get -y install apache2 libxml2-dev \
      php libapache2-mod-php php-cgi php-dev php-pear \
      mysql-server mysql-client php-mysql sqlite3 php-sqlite3") or die("Unable to install web platform.")
-sudo("a2enmod proxy_html") or die("Unable to a2enmod proxy_html")
+#######sudo("a2enmod proxy_html") or die("Unable to a2enmod proxy_html")
 ########sudo("yes '' | sudo pecl install -f stem") or die("Unable to install php stemmer1")
 sudo("cd /opt && rm -rf /opt/php-stemmer && git clone https://github.com/hthetiot/php-stemmer.git && cd php-stemmer && phpize && /opt/php-stemmer/configure && make -C libstemmer_c && make && make install")
 
