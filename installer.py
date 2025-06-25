@@ -154,7 +154,7 @@ cp("files/default", "/etc/apache2/sites-available/contentshell.conf") or die("Un
 sudo("a2dissite 000-default") or die("Unable to disable default Apache site.")
 sudo("a2ensite contentshell.conf") or die("Unable to enable contentshell Apache site.")
 cp("files/my.cnf", "/etc/mysql/my.cnf") or die("Unable to copy MySQL server configuration.")
-sudo("a2enmod php proxy proxy_html rewrite") or die("Unable to enable Apache2 dependency modules.")
+sudo("a2enmod php7.4 proxy proxy_html rewrite") or die("Unable to enable Apache2 dependency modules.")
 if exists("/etc/apache2/mods-available/xml2enc.load"):
     sudo("a2enmod xml2enc") or die("Unable to enable Apache2 xml2enc module.")
 sudo("service apache2 restart") or die("Unable to restart Apache2.")
