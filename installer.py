@@ -143,7 +143,7 @@ sudo("apt-get -y install apache2 libxml2-dev \
      mysql-server mysql-client php-mysql sqlite3 php-sqlite3") or die("Unable to install web platform.")
 sudo("a2enmod proxy_html") or die("Unable to a2enmod proxy_html")
 ########sudo("yes '' | sudo pecl install -f stem") or die("Unable to install php stemmer1")
-sudo("cd /opt && git clone https://github.com/hthetiot/php-stemmer.git && cd php-stemmer && phpize && /opt/php-stemmer/configure && make -C libstemmer_c && make && make install") or die("Unable to install php stemmer2")
+sudo("cd /opt && rm -rf /opt/php-stemmer && git clone https://github.com/hthetiot/php-stemmer.git && cd php-stemmer && phpize && /opt/php-stemmer/configure && make -C libstemmer_c && make && make install") or die("Unable to install php stemmer2")
 
 sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/cli/php.ini'") or die("Unable to install stemmer CLI config")
 sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/apache2/php.ini'") or die("Unable to install stemmer Apache config")
