@@ -95,7 +95,7 @@ sudo("apt-get install -y git") or die("Unable to install Git.")
 # Clone the repo.
 if basedir() == "/tmp/rachel_installer":
     sudo("rm -fr /tmp/rachel_installer")
-    sudo("git clone --depth 1 https://github.com/rachelproject/rachelpios.git /tmp/rachel_installer") or die("Unable to clone RACHEL installer repository.")
+    sudo("git clone --depth 1 https://github.com/june23rd1987/rachelpiOS.git /tmp/rachel_installer") or die("Unable to clone RACHEL installer repository.")
 
 if is_vagrant():
     sudo("mv /vagrant/sources.list /etc/apt/sources.list")
