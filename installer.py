@@ -168,11 +168,11 @@ sudo("sh -c \"umask 0227; echo 'www-data ALL=(ALL) NOPASSWD: /sbin/shutdown' >> 
 sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (so stats.php can read logs)")
 
 # Extra wifi driver configuration
-if wifi_present() and args.install_wifi:
-    sudo("cd /tmp/rachel_installer")
-    sudo("ls -lt files/hostapd_RTL8188CUS")
-    cp("files/hostapd_RTL8188CUS", "/etc/hostapd/hostapd.conf.RTL8188CUS") or die("Unable to copy RTL8188CUS hostapd configuration.")
-    cp("files/hostapd_realtek.conf", "/etc/hostapd/hostapd.conf.realtek") or die("Unable to copy realtek hostapd configuration.")
+#if wifi_present() and args.install_wifi:
+#    sudo("cd /tmp/rachel_installer")
+#    sudo("ls -lt files/hostapd_RTL8188CUS")
+#    cp("files/hostapd_RTL8188CUS", "/etc/hostapd/hostapd.conf.RTL8188CUS") or die("Unable to copy RTL8188CUS hostapd configuration.")
+#    cp("files/hostapd_realtek.conf", "/etc/hostapd/hostapd.conf.realtek") or die("Unable to copy realtek hostapd configuration.")
 
 if args.khan_academy == "ka-lite":
     install_kalite() or die("Unable to install KA-Lite.")
