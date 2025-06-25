@@ -138,7 +138,7 @@ if not is_vagrant():
 # Install web platform
 sudo("echo mysql-server mysql-server/root_password password rachel | sudo debconf-set-selections") or die("Unable to set default MySQL password.")
 sudo("echo mysql-server mysql-server/root_password_again password rachel | sudo debconf-set-selections") or die("Unable to set default MySQL password (again).")
-sudo("apt-get -y install apache2libxml2-dev \
+sudo("apt-get -y install apache2 libxml2-dev \
      php libapache2-mod-php php-cgi php-dev php-pear \
      mysql-server mysql-client php-mysql sqlite3 php-sqlite3") or die("Unable to install web platform.")
 sudo("a2enmod proxy_html") or die("Unable to a2enmod proxy_html")
