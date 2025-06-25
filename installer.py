@@ -89,7 +89,7 @@ def basedir():
 def cp(s, d):
     return sudo("cp %s/%s %s" % (basedir(), s, d))
 
-sudo("apt-get update -y") or die("Unable to update.")
+########sudo("apt-get update -y") or die("Unable to update.")
 sudo("apt-get install -y git") or die("Unable to install Git.")
 
 # Clone the repo.
