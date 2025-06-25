@@ -14,7 +14,7 @@ during installation so that the install script can configure it properly.
 
 paste in the following command after reboot.
 
-`curl -fsS https://raw.githubusercontent.com/rachelproject/rachelpiOS/master/installer.py | python`
+`curl -fsS https://raw.githubusercontent.com/june23rd1987/rachelpiOS/master/installer.py | python`
 
 Please note that this will change the 'pi' user's password to: rachel
 
