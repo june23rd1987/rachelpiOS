@@ -140,7 +140,7 @@ sudo("echo mysql-server mysql-server/root_password password rachel | sudo debcon
 sudo("echo mysql-server mysql-server/root_password_again password rachel | sudo debconf-set-selections") or die("Unable to set default MySQL password (again).")
 sudo("apt-get -y install apache2libxml2-dev \
      php libapache2-mod-php php-cgi php-dev php-pear \
-     mysql-server mysql-client php-mysql sqlite3 php-sqlite3 libapache2-mod-proxy-html ") or die("Unable to install web platform.")
+     mysql-server mysql-client php-mysql sqlite3 php-sqlite3") or die("Unable to install web platform.")
 sudo("a2enmod proxy_html") or die("Unable to a2enmod proxy_html")
 sudo("yes '' | sudo pecl install -f stem") or die("Unable to install php stemmer")
 sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/cli/php.ini'") or die("Unable to install stemmer CLI config")
