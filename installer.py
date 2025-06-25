@@ -68,7 +68,7 @@ def sudo(s):
 	return cmd("sudo DEBIAN_FRONTEND=noninteractive %s" % s)
 
 def die(d):
-	print "Error: " + str(d)
+	print("Error: " + str(d))
 	sys.exit(1)
 
 def is_vagrant():
@@ -193,4 +193,4 @@ if not is_vagrant():
 # updated when you tag a new installer
 sudo("sh -c 'echo piOS-2016.04.19 > /etc/rachelinstaller-version'") or die("Unable to record rachelpiOS version.")
 
-print "RACHEL has been successfully installed. It can be accessed at: http://10.10.10.10/"
+print("RACHEL has been successfully installed. It can be accessed at: http://10.10.10.10/")
