@@ -13,7 +13,9 @@ NOTE: for WIFI to ever work on the unit, you must have the WIFI USB dongle inser
 during installation so that the install script can configure it properly.
 
 paste in the following command after reboot.
+
 `apt-get update -y`
+
 `rm -rf /tmp/rachel_installer && curl -fsS https://raw.githubusercontent.com/june23rd1987/rachelpiOS/master/installer.py | python3`
 
 Please note that this will change the 'pi' user's password to: rachel
