@@ -173,6 +173,24 @@ if is_vagrant():
     #sudo("sh -c 'sed -i \"s/^exit 0//\" /etc/rc.local'") or die("Unable to remove exit from end of /etc/rc.local")
     #sudo("sh -c 'echo ifconfig wlan0 10.10.10.10 >> /etc/rc.local; echo service udhcpd restart >> /etc/rc.local;'") or die("Unable to setup udhcpd reset at boot.")
     #sudo("sh -c 'echo exit 0 >> /etc/rc.local'") or die("Unable to replace exit to end of /etc/rc.local")
+  
+if wifi_present() and args.install_wifi:
+    # Add Wifi Hotspot
+    sudo("systemctl disable system-resolved.service")
+    sudo("systemctl stop systemd-resolved") or die("Unable to stop systemd-resolved")
+    sudo("systemctl status systemd-resolved")
+    sudo("apt install procps iproute2 dnsmasq iptables hostapd iw -y") or die("Unable to install procps iproute2 dnsmasq iptables hostapd iw -y")
+    sudo("wget -O /var/www/0.7.6.tar.gz https://github.com/june23rd1987/rachelpiOS/raw/refs/heads/master/0.7.6.tar.gz") or die("Unable to wget linux-router")
+    sudo("tar -xvf /var/www/0.7.6.tar.gz -C  /var/www/") or die("Unable to tar -xvf 0.7.6.tar.gz")
+    sudo("mv /var/www/linux-router-0.7.6 /var/www/linux-router") or die("Unable to mv linux-router-0.7.6 linux-router")
+    #sudo("/var/www/linux-router/lnxrouter --ap wlan0 SchoolBox -p learn4all -g 10.10.10.10 --no-virt --daemon") or die("Failed on lnxrouter")
+    lnxrouter_cron = """
+    tee -a /etc/crontab << EOF
+    @reboot root /var/www/linux-router/lnxrouter --ap wlan0 SchoolBox -p learn4all -g 10.10.10.10 --no-virt –-daemon
+    EOF
+    """
+    sudo(lnxrouter_cron) or die("Failed to write lnxrouter_cron to /etc/crontab")
+
 
     
 
@@ -262,22 +280,6 @@ sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (
 #    sudo("hostnamectl set-hostname $(cat /etc/hostname)") or die("Unable to set hostname.")
 
 
-# Add Wifi Hotspot
-sudo("systemctl disable system-resolved.service")
-sudo("systemctl stop systemd-resolved") or die("Unable to stop systemd-resolved")
-sudo("systemctl status systemd-resolved")
-
-sudo("apt install procps iproute2 dnsmasq iptables hostapd iw -y") or die("Unable to install procps iproute2 dnsmasq iptables hostapd iw -y")
-sudo("wget -O /var/www/0.7.6.tar.gz https://github.com/june23rd1987/rachelpiOS/raw/refs/heads/master/0.7.6.tar.gz") or die("Unable to wget linux-router")
-sudo("tar -xvf /var/www/0.7.6.tar.gz -C  /var/www/") or die("Unable to tar -xvf 0.7.6.tar.gz")
-sudo("mv /var/www/linux-router-0.7.6 /var/www/linux-router") or die("Unable to mv linux-router-0.7.6 linux-router")
-#sudo("/var/www/linux-router/lnxrouter --ap wlan0 SchoolBox -p learn4all -g 10.10.10.10 --no-virt --daemon") or die("Failed on lnxrouter")
-lnxrouter_cron = """
-tee -a /etc/crontab << EOF
-@reboot root /var/www/linux-router/lnxrouter --ap wlan0 SchoolBox -p learn4all -g 10.10.10.10 --no-virt –-daemon
-EOF
-"""
-sudo(lnxrouter_cron) or die("Failed to write lnxrouter_cron to /etc/crontab")
 
 
 
