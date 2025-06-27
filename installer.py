@@ -217,9 +217,19 @@ sudo("service apache2 restart") or die("Unable to restart Apache2.")
 # Install web frontend
 sudo("rm -fr /var/www") or die("Unable to delete existing default web application (/var/www).")
 sudo("git clone --depth 1 https://github.com/rachelproject/contentshell /var/www") or die("Unable to download RACHEL web application.")
+
+# update PHP files for orangepi port
+sudo("curl -o /var/www/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
+sudo("curl -o /var/www/admin/do_tasks.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/do_tasks.php") or die("Unable to update do_tasks.php")
+sudo("curl -o /var/www/admin/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
+sudo("mkdir -p /var/www/modules") or die("Unable to create directory (/var/www/modules).")
+
 sudo("chown -R www-data.www-data /var/www") or die("Unable to set permissions on RACHEL web application (/var/www).")
 sudo("sh -c \"umask 0227; echo 'www-data ALL=(ALL) NOPASSWD: /sbin/shutdown' >> /etc/sudoers.d/www-shutdown\"") or die("Unable to add www-data to sudoers for web shutdown")
 sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (so stats.php can read logs)")
+
+
+
 
 # Extra wifi driver configuration
 #if wifi_present() and args.install_wifi:
@@ -247,10 +257,5 @@ if not is_vagrant():
 # record the version of the installer we're using - this must be manually
 # updated when you tag a new installer
 sudo("sh -c 'echo OrangePi-2025.06.25 > /etc/rachelinstaller-version'") or die("Unable to record rachelpiOS version.")
-
-# update PHP files for orangepi port
-sudo("curl -o /var/www/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
-sudo("curl -o /var/www/admin/do_tasks.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/do_tasks.php") or die("Unable to update do_tasks.php")
-sudo("curl -o /var/www/admin/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
 
 print("RACHEL has been successfully installed. It can be accessed at: http://10.10.10.10/")
