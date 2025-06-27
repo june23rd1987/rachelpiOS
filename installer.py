@@ -178,8 +178,8 @@ sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (
 #    cp("files/hostapd_RTL8188CUS", "/etc/hostapd/hostapd.conf.RTL8188CUS") or die("Unable to copy RTL8188CUS hostapd configuration.")
 #    cp("files/hostapd_realtek.conf", "/etc/hostapd/hostapd.conf.realtek") or die("Unable to copy realtek hostapd configuration.")
 
-if args.khan_academy == "ka-lite":
-    install_kalite() or die("Unable to install KA-Lite.")
+#if args.khan_academy == "ka-lite":
+#    install_kalite() or die("Unable to install KA-Lite.")
 
 # install the kiwix server (but not content)
 install_kiwix()
