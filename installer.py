@@ -248,4 +248,9 @@ if not is_vagrant():
 # updated when you tag a new installer
 sudo("sh -c 'echo OrangePi-2025.06.25 > /etc/rachelinstaller-version'") or die("Unable to record rachelpiOS version.")
 
+# update PHP files for orangepi port
+sudo("curl -o /var/www/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
+sudo("curl -o /var/www/admin/do_tasks.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/do_tasks.php") or die("Unable to update do_tasks.php")
+sudo("curl -o /var/www/admin/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
+
 print("RACHEL has been successfully installed. It can be accessed at: http://10.10.10.10/")
