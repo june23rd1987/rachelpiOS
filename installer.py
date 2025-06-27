@@ -263,7 +263,7 @@ sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (
 
 
 # Add Wifi Hotspot
-sudo("systemctl disable system-resolved.service") or die("Unable to disable system-resolved.service")
+sudo("systemctl disable system-resolved.service")
 sudo("systemctl stop systemd-resolved") or die("Unable to stop systemd-resolved")
 sudo("systemctl status systemd-resolved")
 
