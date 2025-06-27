@@ -269,7 +269,7 @@ sudo("systemctl status systemd-resolved")
 
 sudo("apt install procps iproute2 dnsmasq iptables hostapd iw -y") or die("Unable to install procps iproute2 dnsmasq iptables hostapd iw -y")
 sudo("rm /var/www/admin/0.7.6.tar.gz* && wget -o /var/www/admin/0.7.6.tar.gz https://github.com/june23rd1987/rachelpiOS/raw/refs/heads/master/linux-router-0.7.6.tar.gz")
-sudo("tar -xvf 0.7.6.tar.gz") or die("Unable to tar -xvf 0.7.6.tar.gz")
+sudo("tar -xvf /var/www/admin/0.7.6.tar.gz") or die("Unable to tar -xvf /var/www/admin/0.7.6.tar.gz")
 sudo("mv /var/www/admin/linux-router-0.7.6 /var/www/admin/linux-router") or die("Unable to mv linux-router-0.7.6 linux-router")
 sudo("/var/www/admin/linux-router/lnxrouter --ap wlan0 SchoolBox -p learn4all -g 10.10.10.10 --no-virt -–daemon") or die("Failed on lnxrouter")
 lnxrouter_cron = """
