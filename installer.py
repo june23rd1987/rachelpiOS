@@ -190,10 +190,15 @@ sudo("apt-get -y install apache2 libxml2-dev \
 ########sudo("yes '' | sudo pecl install -f stem") or die("Unable to install php stemmer1")
 sudo("cd /tmp && rm -rf /tmp/php-stemmer && git clone https://github.com/hthetiot/php-stemmer.git && cd php-stemmer && phpize && /tmp/php-stemmer/configure && make -C libstemmer_c && make && make install")
 
+
+
 #######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/cli/php.ini'") or die("Unable to install stemmer CLI config 7.4")
 sudo("sh -c 'echo \"extension=stemmer\" >> /etc/php/8.1/cli/php.ini'") or die("Unable to install stemmer CLI config 8.1")
 #######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/apache2/php.ini'") or die("Unable to install stemmer Apache config 7.4")
 sudo("sh -c 'echo \"extension=stemmer\" >> /etc/php/8.1/apache2/php.ini'") or die("Unable to install stemmer Apache config 8.1")
+
+
+
 #######sudo("sh -c 'sed -i \"s/upload_max_filesize *= *.*/upload_max_filesize = 512M/\" /etc/php/7.4/apache2/php.ini'") or die("Unable to increase upload_max_filesize in apache2/php.ini")
 sudo("sh -c 'sed -i \"s/upload_max_filesize *= *.*/upload_max_filesize = 512M/\" /etc/php/8.1/apache2/php.ini'") or die("Unable to increase upload_max_filesize in apache2/php.ini 8.1")
 #######sudo("sh -c 'sed -i \"s/post_max_size *= *.*/post_max_size = 512M/\" /etc/php/7.4/apache2/php.ini'") or die("Unable to increase post_max_size in apache2/php.ini")
