@@ -135,6 +135,7 @@ def cp(s, d):
 
 ########sudo("apt-get update -y") or die("Unable to update.")
 sudo("apt-get install -y git") or die("Unable to install Git.")
+sudo("apt-get install -y net-tools") or die("Unable to install net-tools for ifconfig.")
 
 # Clone the repo.
 if basedir() == "/tmp/rachel_installer":
