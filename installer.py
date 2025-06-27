@@ -256,10 +256,10 @@ sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (
 #     sudo("sh -c 'echo pi:rachel | chpasswd'") or die("Unable to change 'pi' password.")
 
 # Update hostname (LAST!)
-if not is_vagrant():
-    cp("files/hosts", "/etc/hosts") or die("Unable to copy hosts file.")
-    cp("files/hostname", "/etc/hostname") or die("Unable to copy hostname file.")
-    sudo("hostnamectl set-hostname $(cat /etc/hostname)") or die("Unable to set hostname.")
+#if not is_vagrant():
+#    cp("files/hosts", "/etc/hosts") or die("Unable to copy hosts file.")
+#    cp("files/hostname", "/etc/hostname") or die("Unable to copy hostname file.")
+#    sudo("hostnamectl set-hostname $(cat /etc/hostname)") or die("Unable to set hostname.")
 
 # record the version of the installer we're using - this must be manually
 # updated when you tag a new installer
