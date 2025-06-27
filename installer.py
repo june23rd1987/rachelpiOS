@@ -218,7 +218,10 @@ sudo("service apache2 restart") or die("Unable to restart Apache2.")
 sudo("rm -fr /var/www") or die("Unable to delete existing default web application (/var/www).")
 sudo("git clone --depth 1 https://github.com/rachelproject/contentshell /var/www") or die("Unable to download RACHEL web application.")
 
+
+
 # update PHP files for orangepi port
+sudo("chmod 0777 /var/www/art/") or die("Unable to chmod /var/www/art/ folder")
 sudo("curl -o /var/www/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
 sudo("curl -o /var/www/admin/do_tasks.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/do_tasks.php") or die("Unable to update do_tasks.php")
 sudo("curl -o /var/www/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
