@@ -147,7 +147,8 @@ sudo("cd /opt && rm -rf /opt/php-stemmer && git clone https://github.com/hthetio
 
 #######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/cli/php.ini'") or die("Unable to install stemmer CLI config")
 sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/8.1/cli/php.ini'") or die("Unable to install stemmer CLI config")
-sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/apache2/php.ini'") or die("Unable to install stemmer Apache config")
+#######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/apache2/php.ini'") or die("Unable to install stemmer Apache config")
+sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/8.1/apache2/php.ini'") or die("Unable to install stemmer Apache config")
 sudo("sh -c 'sed -i \"s/upload_max_filesize *= *.*/upload_max_filesize = 512M/\" /etc/php/7.4/apache2/php.ini'") or die("Unable to increase upload_max_filesize in apache2/php.ini")
 sudo("sh -c 'sed -i \"s/post_max_size *= *.*/post_max_size = 512M/\" /etc/php/7.4/apache2/php.ini'") or die("Unable to increase post_max_size in apache2/php.ini")
 sudo("service apache2 stop") or die("Unable to stop Apache2.")
