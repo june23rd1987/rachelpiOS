@@ -134,16 +134,27 @@ def cp(s, d):
     return sudo("cp %s/%s %s" % (basedir(), s, d))
 
 ########sudo("apt-get update -y") or die("Unable to update.")
+print("Installing Git...")
 sudo("apt-get install -y git") or die("Unable to install Git.")
+print("Installing net-tools...")
 sudo("apt-get install -y net-tools") or die("Unable to install net-tools for ifconfig.")
+
+
 
 # Clone the repo.
 if basedir() == "/tmp/rachel_installer":
+    print("Cloning repo...")
     sudo("rm -fr /tmp/rachel_installer")
     sudo("git clone --depth 1 https://github.com/june23rd1987/rachelpiOS.git /tmp/rachel_installer") or die("Unable to clone RACHEL installer repository.")
+    print("Cloning done.")
+
+
 
 if is_vagrant():
     sudo("mv /vagrant/sources.list /etc/apt/sources.list")
+    
+
+
 # Update and upgrade OS
 #########sudo("apt-get update -y") or die("Unable to update.")
 #sudo("apt-get dist-upgrade -y") or die("Unable to upgrade OS.")
@@ -180,27 +191,35 @@ if wifi_present() and args.install_wifi:
     sudo("systemctl stop systemd-resolved") or die("Unable to stop systemd-resolved")
     sudo("systemctl status systemd-resolved")
     sudo("apt install procps iproute2 dnsmasq iptables hostapd iw -y") or die("Unable to install procps iproute2 dnsmasq iptables hostapd iw -y")
-    sudo("wget -O /var/www/0.7.6.tar.gz https://github.com/june23rd1987/rachelpiOS/raw/refs/heads/master/0.7.6.tar.gz") or die("Unable to wget linux-router")
-    sudo("tar -xvf /var/www/0.7.6.tar.gz -C  /var/www/") or die("Unable to tar -xvf 0.7.6.tar.gz")
-    sudo("mv /var/www/linux-router-0.7.6 /var/www/linux-router") or die("Unable to mv linux-router-0.7.6 linux-router")
-    #sudo("/var/www/linux-router/lnxrouter --ap wlan0 SchoolBox -p learn4all -g 10.10.10.10 --no-virt --daemon") or die("Failed on lnxrouter")
-    lnxrouter_cron = """
-    tee -a /etc/crontab << EOF
-    @reboot root /var/www/linux-router/lnxrouter --ap wlan0 SchoolBox -p learn4all -g 10.10.10.10 --no-virt –-daemon
-    EOF
-    """
-    sudo(lnxrouter_cron) or die("Failed to write lnxrouter_cron to /etc/crontab")
-
-
+    sudo("wget -O /opt/0.7.6.tar.gz https://github.com/june23rd1987/rachelpiOS/raw/refs/heads/master/0.7.6.tar.gz") or die("Unable to wget linux-router")
+    sudo("tar -xvf /opt/0.7.6.tar.gz -C  /opt/") or die("Unable to tar -xvf 0.7.6.tar.gz")
+    sudo("mv /opt/linux-router-0.7.6 /opt/linux-router")
+    #sudo("/opt/linux-router/lnxrouter --ap wlan0 DreamCube -p DreamCube -g 10.10.10.10 --no-virt --daemon") or die("Failed on lnxrouter")
     
+    print("Removing redundant data from crontab...")
+    file_path = "/etc/crontab"
+    with open(file_path, "r+") as f:
+        lines = [line for line in f if line.strip() != "@reboot root /opt/linux-router/lnxrouter --ap wlan0 DreamCube -p DreamCube -g 10.10.10.10 --no-virt --daemon"]
+        f.seek(0)
+        f.writelines(lines)
+        f.truncate()
+    print("Removing done.")
+    sudo("sh -c 'echo \"@reboot root /opt/linux-router/lnxrouter --ap wlan0 DreamCube -p DreamCube -g 10.10.10.10 --no-virt --daemon\" >> /etc/crontab'") or die("Failed to write lnxrouter_cron to /etc/crontab")
+    print("Add Wifi Hotspot Success")
+
+
+   
 
 # Setup LAN
-if not is_vagrant():
-    cp("files/interfaces", "/etc/network/interfaces") or die("Unable to copy network interface configuration (interfaces)")
+#if not is_vagrant():
+#    cp("files/interfaces", "/etc/network/interfaces") or die("Unable to copy network interface configuration (interfaces)")
 
 # Install web platform
+print("Installing web platform...")
 sudo("echo mysql-server mysql-server/root_password password rachel | sudo debconf-set-selections") or die("Unable to set default MySQL password.")
 sudo("echo mysql-server mysql-server/root_password_again password rachel | sudo debconf-set-selections") or die("Unable to set default MySQL password (again).")
+
+
 sudo("apt-get -y install apache2 libxml2-dev \
      php libapache2-mod-php php-cgi php-dev php-pear \
      mysql-server mysql-client php-mysql sqlite3 php-sqlite3") or die("Unable to install web platform.")
@@ -209,11 +228,10 @@ sudo("apt-get -y install apache2 libxml2-dev \
 sudo("cd /tmp && rm -rf /tmp/php-stemmer && git clone https://github.com/hthetiot/php-stemmer.git && cd php-stemmer && phpize && /tmp/php-stemmer/configure && make -C libstemmer_c && make && make install")
 
 
-
 #######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/cli/php.ini'") or die("Unable to install stemmer CLI config 7.4")
-sudo("sh -c 'echo \"extension=stemmer\" >> /etc/php/8.1/cli/php.ini'") or die("Unable to install stemmer CLI config 8.1")
+sudo("sh -c 'echo \"extension=stemmer.so\" >> /etc/php/8.1/cli/php.ini'") or die("Unable to install stemmer CLI config 8.1")
 #######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/apache2/php.ini'") or die("Unable to install stemmer Apache config 7.4")
-sudo("sh -c 'echo \"extension=stemmer\" >> /etc/php/8.1/apache2/php.ini'") or die("Unable to install stemmer Apache config 8.1")
+sudo("sh -c 'echo \"extension=stemmer.so\" >> /etc/php/8.1/apache2/php.ini'") or die("Unable to install stemmer Apache config 8.1")
 
 
 
@@ -231,10 +249,14 @@ sudo("a2enmod proxy proxy_html rewrite") or die("Unable to enable Apache2 depend
 if exists("/etc/apache2/mods-available/xml2enc.load"):
     sudo("a2enmod xml2enc") or die("Unable to enable Apache2 xml2enc module.")
 sudo("service apache2 restart") or die("Unable to restart Apache2.")
+print("Installing web platform done.")
+
+
 
 # Install web frontend
 sudo("rm -fr /var/www") or die("Unable to delete existing default web application (/var/www).")
 sudo("git clone --depth 1 https://github.com/rachelproject/contentshell /var/www") or die("Unable to download RACHEL web application.")
+
 
 
 
@@ -245,6 +267,7 @@ sudo("curl -o /var/www/admin/do_tasks.php https://raw.githubusercontent.com/june
 sudo("curl -o /var/www/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
 sudo("curl -o /var/www/art/rachel_banner1.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
 
+
 sudo("mkdir -p /var/www/modules") or die("Unable to create directory (/var/www/modules).")
 sudo("chmod -R 0777 /var/www/modules/") or die("Unable to chmod /var/www/art/ folder")
 
@@ -252,6 +275,7 @@ sudo("chmod -R 0777 /var/www/modules/") or die("Unable to chmod /var/www/art/ fo
 sudo("chown -R www-data.www-data /var/www") or die("Unable to set permissions on RACHEL web application (/var/www).")
 sudo("sh -c \"umask 0227; echo 'www-data ALL=(ALL) NOPASSWD: /sbin/shutdown' >> /etc/sudoers.d/www-shutdown\"") or die("Unable to add www-data to sudoers for web shutdown")
 sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (so stats.php can read logs)")
+
 
 
 
@@ -290,3 +314,5 @@ sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (
 sudo("sh -c 'echo OrangePi-2025.06.25 > /etc/rachelinstaller-version'") or die("Unable to record rachelpiOS version.")
 
 print("RACHEL has been successfully installed. It can be accessed at: http://10.10.10.10/")
+
+die("ENDED of script") 
