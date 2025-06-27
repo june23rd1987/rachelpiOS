@@ -50,6 +50,50 @@ def install_kiwix():
     sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to record kiwix version.")
     return True
 
+def install_kiwix2():
+    import platform
+
+    sudo("mkdir -p /var/kiwix/bin") or die("Unable to create kiwix directories")
+    # Download latest ARMv7 kiwix-serve binary (adjust version as needed)
+    kiwix_url = "https://download.kiwix.org/release/kiwix-tools/kiwix-tools_linux-armhf.tar.gz"
+    kiwix_tar = "/tmp/kiwix-tools_linux-armhf.tar.gz"
+    sudo(f"wget -O {kiwix_tar} {kiwix_url}") or die("Unable to download kiwix-serve")
+    sudo(f"tar -xzf {kiwix_tar} -C /var/kiwix/bin --strip-components=1") or die("Unable to extract kiwix-serve")
+    sudo("rm -f {kiwix_tar}")  # Clean up
+
+    # Copy sample ZIM and library files
+    cp("files/kiwix-sample.zim", "/var/kiwix/sample.zim") or die("Unable to install kiwix sample zim")
+    cp("files/kiwix-sample-library.xml", "/var/kiwix/sample-library.xml") or die("Unable to install kiwix sample library")
+    cp("files/rachel-kiwix-start.pl", "/var/kiwix/bin/rachel-kiwix-start.pl") or die("Unable to copy rachel-kiwix-start wrapper")
+    sudo("chmod +x /var/kiwix/bin/rachel-kiwix-start.pl") or die("Unable to set permissions on rachel-kiwix-start wrapper")
+
+    # Install systemd service for kiwix-serve
+    kiwix_service = """
+[Unit]
+Description=Kiwix-serve
+After=network.target
+
+[Service]
+ExecStart=/var/kiwix/bin/kiwix-serve --port=8080 --library /var/kiwix/sample-library.xml
+User=www-data
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+"""
+    with open("/tmp/kiwix.service", "w") as f:
+        f.write(kiwix_service)
+    sudo("mv /tmp/kiwix.service /etc/systemd/system/kiwix.service") or die("Unable to install kiwix systemd service")
+    sudo("systemctl daemon-reload")
+    sudo("systemctl enable kiwix")
+    sudo("systemctl start kiwix") or die("Unable to start the kiwix service.")
+
+    sudo("sh -c 'echo latest >/etc/kiwix-version'") or die("Unable to record kiwix version.")
+    return True
+
+
+
+
 def exists(p):
     return os.path.isfile(p) or os.path.isdir(p)
 
@@ -182,7 +226,7 @@ sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (
 #    install_kalite() or die("Unable to install KA-Lite.")
 
 # install the kiwix server (but not content)
-install_kiwix()
+install_kiwix2()
 
 # Remove Raspberry Pi user password change
 # if not is_vagrant():
