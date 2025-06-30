@@ -51,7 +51,7 @@ def install_kiwix():
     return True
 
 def install_kiwix2025():
-    sudo("apt install kiwix-tools") or die("Unable to install kiwix")
+    sudo("apt install kiwix-tools -y") or die("Unable to install kiwix2025")
     return True
 
 def install_kiwix2():
@@ -137,6 +137,13 @@ def basedir():
 def cp(s, d):
     return sudo("cp %s/%s %s" % (basedir(), s, d))
 
+
+#Expand Files System
+print("Expanding filesystem...")
+sudo("sudo growpart /dev/mmcblk1 1")
+sudo("sudo resize2fs /dev/mmcblk1p1") or die("Unable to resize filesystem.")
+print("Expanding filesystem complete...")
+
 ########sudo("apt-get update -y") or die("Unable to update.")
 print("Installing Git...")
 sudo("apt-get install -y git") or die("Unable to install Git.")
@@ -200,7 +207,7 @@ if wifi_present() and args.install_wifi:
     sudo("mv /opt/linux-router-0.7.6 /opt/linux-router")
     #sudo("/opt/linux-router/lnxrouter --ap wlan0 DreamCube -p DreamCube -g 10.10.10.10 --no-virt --daemon") or die("Failed on lnxrouter")
     
-    print("Removing redundant data from crontab...")
+    print("Removing redundant hotspot data from crontab...")
     file_path = "/etc/crontab"
     with open(file_path, "r+") as f:
         lines = [line for line in f if line.strip() != "@reboot root /opt/linux-router/lnxrouter --ap wlan0 DreamCube -p DreamCube -g 10.10.10.10 --no-virt --daemon"]
@@ -273,6 +280,27 @@ sudo("curl -o /var/www/art/rachel_banner1.jpg https://github.com/june23rd1987/ra
 
 
 sudo("curl -o /var/www/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
+sudo("chmod -R +x /var/www/scripts/") or die("Unable to chmod /var/www/art/ folder")
+print("Removing redundant kiwix data from crontab...")
+file_path = "/etc/crontab"
+with open(file_path, "r+") as f:
+    lines = [line for line in f if line.strip() != "@reboot root /var/www/scripts/rachelKiwixStart.sh"]
+    f.seek(0)
+    f.writelines(lines)
+    f.truncate()
+print("Removing done.")
+sudo("sh -c 'echo \"@reboot root /var/www/scripts/rachelKiwixStart.sh\" >> /etc/crontab'") or die("Failed to write rachelKiwixStart-cron to /etc/crontab")
+print("Add Kiwix Success")
+kiwix_version = "3.2.0"
+sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to record kiwix version.")
+
+# Install RACHEL content library
+print("Kill existing kiwix-serve process if running...")
+sudo("killall /usr/bin/kiwix-serve")
+print("Starting kiwix-serve daemon...")
+sudo("/var/www/scripts/rachelKiwixStart.sh")
+
+
 
 
 sudo("mkdir -p /var/www/modules") or die("Unable to create directory (/var/www/modules).")
@@ -322,4 +350,4 @@ sudo("sh -c 'echo OrangePi-2025.06.25 > /etc/rachelinstaller-version'") or die("
 
 print("RACHEL has been successfully installed. It can be accessed at: http://10.10.10.10/")
 
-die("ENDED of script") 
+print("ENDED of script") 
