@@ -272,6 +272,9 @@ sudo("curl -o /var/www/art/rachel_banner.jpg https://raw.githubusercontent.com/j
 sudo("curl -o /var/www/art/rachel_banner1.jpg https://github.com/june23rd1987/rachelpiOS/blob/master/rachel_banner.jpg?raw=true") or die("Unable to rachel_banner.jpg")
 
 
+sudo("curl -o /var/www/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
+
+
 sudo("mkdir -p /var/www/modules") or die("Unable to create directory (/var/www/modules).")
 sudo("chmod -R 0777 /var/www/modules/") or die("Unable to chmod /var/www/art/ folder")
 
