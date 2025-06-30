@@ -50,6 +50,10 @@ def install_kiwix():
     sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to record kiwix version.")
     return True
 
+def install_kiwix2025():
+    sudo("apt install kiwix-tools") or die("Unable to install kiwix")
+    return True
+
 def install_kiwix2():
     import platform
 
@@ -291,7 +295,7 @@ sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (
 #    install_kalite() or die("Unable to install KA-Lite.")
 
 # install the kiwix server (but not content)
-# install_kiwix2()
+install_kiwix2025()
 
 # Remove Raspberry Pi user password change
 # if not is_vagrant():
