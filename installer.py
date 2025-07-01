@@ -54,6 +54,21 @@ def install_kiwix2025():
     sudo("apt install kiwix-tools -y") or die("Unable to install kiwix2025")
     return True
 
+
+def install_kolibri():
+    print("Installing Kolibri...")
+    sudo("apt-get install -y python3-pip ffmpeg") or die("Unable to install python3-pip for Kolibri.")
+    sudo("pip3 install --upgrade pip") or die("Unable to upgrade pip for Kolibri.")
+    sudo("pip3 install kolibri") or die("Unable to install Kolibri.")
+    # Optional: set up Kolibri as a systemd service
+    sudo("kolibri systemd setup") or die("Unable to set up Kolibri systemd service.")
+    sudo("systemctl enable kolibri") or die("Unable to enable Kolibri service.")
+    sudo("systemctl start kolibri") or die("Unable to start Kolibri service.")
+    print("Kolibri installation complete. Access it at http://<device-ip>:8080/")
+    sudo("sh -c 'echo 0.18.1 >/etc/kolibri-version'") or die("Unable to record kolibri version.")
+    return True
+
+
 def install_kiwix2():
     import platform
 
@@ -138,11 +153,11 @@ def cp(s, d):
     return sudo("cp %s/%s %s" % (basedir(), s, d))
 
 
-#Expand Files System
-print("Expanding filesystem...")
-sudo("sudo growpart /dev/mmcblk1 1")
-sudo("sudo resize2fs /dev/mmcblk1p1") or die("Unable to resize filesystem.")
-print("Expanding filesystem complete...")
+#Expand Files System MANUAL THIS
+#print("Expanding filesystem...")
+#sudo("sudo growpart /dev/mmcblk1 1")
+#sudo("sudo resize2fs /dev/mmcblk1p1") or die("Unable to resize filesystem.")
+#print("Expanding filesystem complete...")
 
 ########sudo("apt-get update -y") or die("Unable to update.")
 print("Installing Git...")
@@ -278,6 +293,9 @@ sudo("curl -o /var/www/admin/do_tasks.php https://raw.githubusercontent.com/june
 sudo("curl -o /var/www/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
 sudo("curl -o /var/www/art/rachel_banner1.jpg https://github.com/june23rd1987/rachelpiOS/blob/master/rachel_banner.jpg?raw=true") or die("Unable to rachel_banner.jpg")
 
+sudo("curl -o /var/www/scripts/library.xml https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/library.xml") or die("Unable to library.xml")
+sudo("curl -o /var/www/scripts/empty.zim https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/empty.zim") or die("Unable to empty.zim")
+
 
 sudo("curl -o /var/www/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
 sudo("chmod -R +x /var/www/scripts/") or die("Unable to chmod /var/www/art/ folder")
@@ -328,6 +346,9 @@ sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (
 # install the kiwix server (but not content)
 install_kiwix2025()
 
+# install the kiwix server (but not content)
+install_kolibri()
+
 # Remove Raspberry Pi user password change
 # if not is_vagrant():
 #     sudo("sh -c 'echo pi:rachel | chpasswd'") or die("Unable to change 'pi' password.")
@@ -350,4 +371,4 @@ sudo("sh -c 'echo OrangePi-2025.06.25 > /etc/rachelinstaller-version'") or die("
 
 print("RACHEL has been successfully installed. It can be accessed at: http://10.10.10.10/")
 
-print("ENDED of script") 
+print("END of script") 
