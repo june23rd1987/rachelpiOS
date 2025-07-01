@@ -8,8 +8,11 @@ To install is easy:
 Expand your microSD card partition
 
 `df -h`
+
 `sudo lsblk` - Know your blocks
+
 `sudo growpart /dev/mmcblk1 1` - change blk1 depending on the main storage
+
 `sudo resize2fs /dev/mmcblk1p1`
 
 
