@@ -6,8 +6,12 @@ rachelpiOS
 To install is easy:
 
 Expand your microSD card partition
-`sudo raspi-config`
-`sudo reboot`
+
+`df -h`
+`sudo lsblk` - Know your blocks
+`sudo growpart /dev/mmcblk1 1` - change blk1 depending on the main storage
+`sudo resize2fs /dev/mmcblk1p1`
+
 
 NOTE: for WIFI to ever work on the unit, you must have the WIFI USB dongle inserted
 during installation so that the install script can configure it properly.
