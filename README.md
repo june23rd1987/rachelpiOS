@@ -14,6 +14,8 @@ Update Repositories
 
 Expand your microSD card partition
 
+`sudo apt install cloud-guest-utils` - Install growpart
+
 `df -h`
 
 `sudo lsblk` - Know your blocks
