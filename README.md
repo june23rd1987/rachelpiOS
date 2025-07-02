@@ -6,8 +6,6 @@ rachelpiOS
 
 paste in the following command after reboot.
 
-`armbian-upgrade`
-
 Update Repositories
 `apt-get update -y`
 `apt update -y`
