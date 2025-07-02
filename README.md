@@ -1,11 +1,8 @@
 rachelpiOS
 ---------------
 
-*NOTE: This install is tested to work with `2016-05-27-raspbian-jessie` and is known to have problems with newer versions*
+*NOTE: This install is tested to work with [`2016-05-27-raspbian-jessie`](https://www.armbian.com/orange-pi-zero-3/)
 
-
-NOTE: for WIFI to ever work on the unit, you must have the WIFI USB dongle inserted
-during installation so that the install script can configure it properly.
 
 paste in the following command after reboot.
 
