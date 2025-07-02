@@ -51,7 +51,7 @@ def install_kiwix():
     return True
 
 def install_kiwix2025():
-    sudo("apt install kiwix-tools -y") or die("Unable to install kiwix2025")
+    sudo("apt-get install kiwix-tools -y") or die("Unable to install kiwix2025")
     return True
 
 
@@ -60,6 +60,7 @@ def install_kolibri():
     sudo("apt-get install -y python3-pip ffmpeg") or die("Unable to install python3-pip for Kolibri.")
     sudo("pip3 install --upgrade pip") or die("Unable to upgrade pip for Kolibri.")
     sudo("pip3 install kolibri") or die("Unable to install Kolibri.")
+    #sudo("pip3 install kolibri --break-system-packages") or die("Unable to install Kolibri.")
 
     # Create a systemd service file for Kolibri
     kolibri_service = """
@@ -235,10 +236,13 @@ if is_vagrant():
   
 if wifi_present() and args.install_wifi:
     # Add Wifi Hotspot
+    #Change nameserver to solve the wget issues
+    sudo("sed -i 's/^nameserver .*/nameserver 8.8.8.8/' /run/systemd/resolve/resolv.conf") or die("Unable to change nameserver in /run/systemd/resolve/resolv.conf")
+    sudo("sed -i 's/^nameserver .*/nameserver 8.8.8.8/' /run/systemd/resolve/stub-resolv.conf") or die("Unable to change nameserver in /run/systemd/resolve/stub-resolv.conf")
     sudo("systemctl disable system-resolved.service")
     sudo("systemctl stop systemd-resolved") or die("Unable to stop systemd-resolved")
     sudo("systemctl status systemd-resolved")
-    sudo("apt install procps iproute2 dnsmasq iptables hostapd iw -y") or die("Unable to install procps iproute2 dnsmasq iptables hostapd iw -y")
+    sudo("apt-get install procps iproute2 dnsmasq iptables hostapd iw -y") or die("Unable to install procps iproute2 dnsmasq iptables hostapd iw -y")
     sudo("wget -O /opt/0.7.6.tar.gz https://github.com/june23rd1987/rachelpiOS/raw/refs/heads/master/0.7.6.tar.gz") or die("Unable to wget linux-router")
     sudo("tar -xvf /opt/0.7.6.tar.gz -C  /opt/") or die("Unable to tar -xvf 0.7.6.tar.gz")
     sudo("mv /opt/linux-router-0.7.6 /opt/linux-router")
@@ -264,6 +268,7 @@ if wifi_present() and args.install_wifi:
 
 # Install web platform
 print("Installing web platform...")
+php_version = "8.1"
 sudo("echo mysql-server mysql-server/root_password password rachel | sudo debconf-set-selections") or die("Unable to set default MySQL password.")
 sudo("echo mysql-server mysql-server/root_password_again password rachel | sudo debconf-set-selections") or die("Unable to set default MySQL password (again).")
 
@@ -277,16 +282,16 @@ sudo("cd /tmp && rm -rf /tmp/php-stemmer && git clone https://github.com/hthetio
 
 
 #######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/cli/php.ini'") or die("Unable to install stemmer CLI config 7.4")
-sudo("sh -c 'echo \"extension=stemmer.so\" >> /etc/php/8.1/cli/php.ini'") or die("Unable to install stemmer CLI config 8.1")
+sudo("sh -c 'echo \"extension=stemmer.so\" >> /etc/php/" + php_version + "/cli/php.ini'") or die("Unable to install stemmer CLI config " + php_version + "")
 #######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/apache2/php.ini'") or die("Unable to install stemmer Apache config 7.4")
-sudo("sh -c 'echo \"extension=stemmer.so\" >> /etc/php/8.1/apache2/php.ini'") or die("Unable to install stemmer Apache config 8.1")
+sudo("sh -c 'echo \"extension=stemmer.so\" >> /etc/php/" + php_version + "/apache2/php.ini'") or die("Unable to install stemmer Apache config " + php_version + "")
 
 
 
 #######sudo("sh -c 'sed -i \"s/upload_max_filesize *= *.*/upload_max_filesize = 512M/\" /etc/php/7.4/apache2/php.ini'") or die("Unable to increase upload_max_filesize in apache2/php.ini")
-sudo("sh -c 'sed -i \"s/upload_max_filesize *= *.*/upload_max_filesize = 512M/\" /etc/php/8.1/apache2/php.ini'") or die("Unable to increase upload_max_filesize in apache2/php.ini 8.1")
+sudo("sh -c 'sed -i \"s/upload_max_filesize *= *.*/upload_max_filesize = 512M/\" /etc/php/" + php_version + "/apache2/php.ini'") or die("Unable to increase upload_max_filesize in apache2/php.ini " + php_version + "")
 #######sudo("sh -c 'sed -i \"s/post_max_size *= *.*/post_max_size = 512M/\" /etc/php/7.4/apache2/php.ini'") or die("Unable to increase post_max_size in apache2/php.ini")
-sudo("sh -c 'sed -i \"s/post_max_size *= *.*/post_max_size = 512M/\" /etc/php/8.1/apache2/php.ini'") or die("Unable to increase post_max_size in apache2/php.ini 8.1")
+sudo("sh -c 'sed -i \"s/post_max_size *= *.*/post_max_size = 512M/\" /etc/php/" + php_version + "/apache2/php.ini'") or die("Unable to increase post_max_size in apache2/php.ini " + php_version + "")
 sudo("service apache2 stop") or die("Unable to stop Apache2.")
 cp("files/default", "/etc/apache2/sites-available/contentshell.conf") or die("Unable to set default Apache site.")
 sudo("a2dissite 000-default") or die("Unable to disable default Apache site.")
