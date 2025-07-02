@@ -23,7 +23,7 @@ else
 fi
 
 # library="/var/kiwix/library.xml"
-library="/var/www/modules/en-gutenberg/data/kiwix/library.xml"
+library="/var/www/scripts/library.xml"
 
 # Remove existing library
 rm -f $library
@@ -62,7 +62,7 @@ rm -f $tmp
 # if there were no zims, we put in an "empty" zim so that
 # kiwix can at least show it's running and working
 if [[ ! $found ]]; then
-    /usr/bin/kiwix-manage $library add /var/www/modules/en-gutenberg/data/kiwix/empty.zim
+    /usr/bin/kiwix-manage $library add /var/www/scripts/empty.zim
 fi
 
 # Restart Kiwix
