@@ -60,13 +60,35 @@ def install_kolibri():
     sudo("apt-get install -y python3-pip ffmpeg") or die("Unable to install python3-pip for Kolibri.")
     sudo("pip3 install --upgrade pip") or die("Unable to upgrade pip for Kolibri.")
     sudo("pip3 install kolibri") or die("Unable to install Kolibri.")
-    # Optional: set up Kolibri as a systemd service
-    sudo("kolibri systemd setup") or die("Unable to set up Kolibri systemd service.")
+
+    # Create a systemd service file for Kolibri
+    kolibri_service = """
+[Unit]
+Description=Kolibri offline learning platform
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+ExecStart=/usr/local/bin/kolibri start --foreground --port=9090
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+"""
+    print("Writing Kolibri Service...")
+    with open("/tmp/kolibri.service", "w") as f:
+        f.write(kolibri_service)
+    sudo("mv /tmp/kolibri.service /etc/systemd/system/kolibri.service") or die("Unable to install Kolibri systemd service")
+    sudo("systemctl daemon-reload")
     sudo("systemctl enable kolibri") or die("Unable to enable Kolibri service.")
     sudo("systemctl start kolibri") or die("Unable to start Kolibri service.")
+
     print("Kolibri installation complete. Access it at http://<device-ip>:8080/")
     sudo("sh -c 'echo 0.18.1 >/etc/kolibri-version'") or die("Unable to record kolibri version.")
+    print("Kolibri Installed Successfully.")
     return True
+
 
 
 def install_kiwix2():
