@@ -10,6 +10,7 @@ paste in the following command after reboot.
 
 Update Repositories
 `apt-get update -y`
+`apt update -y`
 
 Expand your microSD card partition
 
