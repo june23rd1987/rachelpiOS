@@ -66,5 +66,19 @@ if [[ ! $found ]]; then
 fi
 
 # Restart Kiwix
+echo "Restarting Kiwix server..."
 killall /usr/bin/kiwix-serve
+echo "Starting Kiwix server..."
+echo "Executing /usr/bin/kiwix-serve --daemon --port=81 --library $library"
 /usr/bin/kiwix-serve --daemon --port=81 --library $library > /dev/null
+echo "Kiwix server started."
+
+# Optionally, check if kiwix-serve is running
+if pgrep -f "kiwix-serve.*--port=81" > /dev/null; then
+    echo "Kiwix is running on port 81."
+else
+    echo "Warning: Kiwix may not have started successfully."
+fi
+
+exit 0
+
