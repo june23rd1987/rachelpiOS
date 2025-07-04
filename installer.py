@@ -191,7 +191,7 @@ sudo("apt-get install -y net-tools") or die("Unable to install net-tools for ifc
 
 # Clone the repo.
 if basedir() == "/tmp/rachel_installer":
-    print("Cloning repo...")
+    print("Cloning repo https://github.com/june23rd1987/rachelpiOS.git...")
     sudo("rm -fr /tmp/rachel_installer")
     sudo("git clone --depth 1 https://github.com/june23rd1987/rachelpiOS.git /tmp/rachel_installer") or die("Unable to clone RACHEL installer repository.")
     print("Cloning done.")
@@ -325,7 +325,7 @@ sudo("curl -o /var/www/index.php https://raw.githubusercontent.com/june23rd1987/
 
 
 sudo("curl -o /var/www/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
-sudo("chmod -R +x /var/www/scripts/") or die("Unable to chmod /var/www/art/ folder")
+sudo("chmod -R +x /var/www/scripts/") or die("Unable to chmod /var/www/scripts/ folder")
 print("Removing redundant kiwix data from crontab...")
 file_path = "/etc/crontab"
 with open(file_path, "r+") as f:
@@ -340,10 +340,10 @@ kiwix_version = "3.2.0"
 sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to record kiwix version.")
 
 # Install RACHEL content library
-print("Kill existing kiwix-serve process if running...")
-sudo("killall /usr/bin/kiwix-serve")
-#print("Starting kiwix-serve daemon...")
-#sudo("/var/www/scripts/rachelKiwixStart.sh")
+#print("Kill existing kiwix-serve process if running...") - already in rachelKiwixStart.sh
+#sudo("sh -c 'killall /usr/bin/kiwix-serve'") or die("Unable to kill existing kiwix-serve process.") - already in rachelKiwixStart.sh
+print("Starting kiwix-serve daemon via /var/www/scripts/rachelKiwixStart.sh")
+sudo("nohup /var/www/scripts/rachelKiwixStart.sh > /dev/null 2>&1 &") or die("Unable to start kiwix-serve daemon via rachelKiwixStart.sh script.")
 print("Reboot the device to start kiwix-serve daemon...")
 
 
