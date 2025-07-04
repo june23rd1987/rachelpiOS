@@ -188,7 +188,8 @@ print("Installing net-tools...")
 sudo("apt-get install -y net-tools") or die("Unable to install net-tools for ifconfig.")
 print("Installing goaccess...")
 sudo("apt-get install -y goaccess") or die("Unable to install goaccess for stats page.")
-
+print("Installing cloud-guest-utils...")
+sudo("apt-get install -y cloud-guest-utils") or die("Unable to install cloud-guest-utils for growpart.")
 
 
 # Clone the repo.
