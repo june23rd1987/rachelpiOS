@@ -80,5 +80,4 @@ else
     echo "Warning: Kiwix may not have started successfully."
 fi
 
-exit 0
 
