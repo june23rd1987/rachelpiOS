@@ -186,6 +186,7 @@ print("Installing Git...")
 sudo("apt-get install -y git") or die("Unable to install Git.")
 print("Installing net-tools...")
 sudo("apt-get install -y net-tools") or die("Unable to install net-tools for ifconfig.")
+print("Installing goaccess...")
 sudo("apt-get install -y goaccess") or die("Unable to install goaccess for stats page.")
 
 
