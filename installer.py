@@ -256,20 +256,6 @@ if wifi_present() and args.install_wifi:
     print("Add Wifi Hotspot Success")
 
 
-#add mount USB   
-print("Removing /usr/bin/mount /dev/sda1 /var/www  crontab...")
-file_path = "/etc/crontab"
-with open(file_path, "r+") as f:
-    lines = [line for line in f if line.strip() != "@reboot root /usr/bin/mount /dev/sda1 /var/www"]
-    f.seek(0)
-    f.writelines(lines)
-    f.truncate()
-print("Removing done.")
-sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 /var/www\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
-print("Add mount USB Success")
-print("Trying to mount /dev/sda1 to /var/www...")
-sudo("/usr/bin/mount /dev/sda1 /var/www")
-
 
 # Setup LAN
 #if not is_vagrant():
@@ -331,12 +317,29 @@ else:
     print("No RACHEL directory found, using /var/www as the base directory.")
     rachel_dir = "/var/www"
 
+#add mount USB   
+print("Removing /usr/bin/mount /dev/sda1 "+rachel_dir+"/modules  crontab...")
+file_path = "/etc/crontab"
+with open(file_path, "r+") as f:
+    lines = [line for line in f if line.strip() != "@reboot root /usr/bin/mount /dev/sda1 "+rachel_dir+"/modules"]
+    f.seek(0)
+    f.writelines(lines)
+    f.truncate()
+print("Removing done.")
+sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 "+rachel_dir+"\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
+print("Add mount USB Success")
+print("Trying to mount /dev/sda1 to "+rachel_dir+"/modules...")
+sudo("mount /dev/sda1 "+rachel_dir+"/modules")
+
+
+
 # Install web frontend
 print("Checking if RACHEL contentshell is already installed...")
 if not exists(""+rachel_dir+"/admin/admin.sqlite"):
     print("RACHEL "+rachel_dir+"/admin/admin.sqlite not found, installing...")
     print("Deleting existing default web application ("+rachel_dir+")...")
-    sudo("rm -fr "+rachel_dir+"") or die("Unable to delete existing default web application ("+rachel_dir+").")
+    #sudo("rm -fr "+rachel_dir+"") or die("Unable to delete existing default web application ("+rachel_dir+").")
+    sudo("rm -fr "+rachel_dir+"")
     sudo("git clone --depth 1 https://github.com/rachelproject/contentshell "+rachel_dir+"") or die("Unable to download RACHEL web application.")
 
 
