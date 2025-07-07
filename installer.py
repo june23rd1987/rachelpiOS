@@ -256,7 +256,20 @@ if wifi_present() and args.install_wifi:
     print("Add Wifi Hotspot Success")
 
 
-   
+#add mount USB   
+print("Removing /usr/bin/mount /dev/sda1 /media/usb  crontab...")
+file_path = "/etc/crontab"
+with open(file_path, "r+") as f:
+    lines = [line for line in f if line.strip() != "@reboot root /usr/bin/mount /dev/sda1 /media/usb"]
+    f.seek(0)
+    f.writelines(lines)
+    f.truncate()
+print("Removing done.")
+sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 /media/usb\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
+print("Add mount USB Success")
+print("Trying to mount /dev/sda1 to /media/usb...")
+sudo("/usr/bin/mount /dev/sda1 /media/usb")
+
 
 # Setup LAN
 #if not is_vagrant():
@@ -278,9 +291,9 @@ sudo("cd /tmp && rm -rf /tmp/php-stemmer && git clone https://github.com/hthetio
 
 
 #######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/cli/php.ini'") or die("Unable to install stemmer CLI config 7.4")
-sudo("sh -c 'echo \"extension=stemmer.so\" >> /etc/php/"+php_version+"/cli/php.ini'") or die("Unable to install stemmer CLI config "+php_version+"")
+sudo("sh -c 'echo \"extension=stemmer\" >> /etc/php/"+php_version+"/cli/php.ini'") or die("Unable to install stemmer CLI config "+php_version+"")
 #######sudo("sh -c 'echo \"extension=stem.so\" >> /etc/php/7.4/apache2/php.ini'") or die("Unable to install stemmer Apache config 7.4")
-sudo("sh -c 'echo \"extension=stemmer.so\" >> /etc/php/"+php_version+"/apache2/php.ini'") or die("Unable to install stemmer Apache config "+php_version+"")
+sudo("sh -c 'echo \"extension=stemmer\" >> /etc/php/"+php_version+"/apache2/php.ini'") or die("Unable to install stemmer Apache config "+php_version+"")
 
 
 
@@ -289,7 +302,9 @@ sudo("sh -c 'sed -i \"s/upload_max_filesize *= *.*/upload_max_filesize = 9999999
 #######sudo("sh -c 'sed -i \"s/post_max_size *= *.*/post_max_size = 512M/\" /etc/php/7.4/apache2/php.ini'") or die("Unable to increase post_max_size in apache2/php.ini")
 sudo("sh -c 'sed -i \"s/post_max_size *= *.*/post_max_size = 99999999/\" /etc/php/"+php_version+"/apache2/php.ini'") or die("Unable to increase post_max_size in apache2/php.ini "+php_version+"")
 sudo("service apache2 stop") or die("Unable to stop Apache2.")
-cp("files/default", "/etc/apache2/sites-available/contentshell.conf") or die("Unable to set default Apache site.")
+#cp("files/default", "/etc/apache2/sites-available/contentshell.conf") or die("Unable to set default Apache site.")
+sudo("curl -o /etc/apache2/sites-available/contentshell.conf https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/contentshell.conf")
+sudo("sed -i 's|/var/www|/media/usb/rachel|g' /etc/apache2/sites-available/contentshell.conf") or die("Unable to set contentshell.conf to use /media/usb/rachel as the web root.")
 sudo("a2dissite 000-default") or die("Unable to disable default Apache site.")
 sudo("a2ensite contentshell.conf") or die("Unable to enable contentshell Apache site.")
 cp("files/my.cnf", "/etc/mysql/my.cnf") or die("Unable to copy MySQL server configuration.")
@@ -302,13 +317,14 @@ print("Installing web platform done.")
 
 
 
+
 if exists("/srv/rachel/www"):
     print("RACHEL directory found at /srv/rachel/www, using that as the base directory.")
     rachel_dir = "/srv/rachel/www"
 elif exists("/media/RACHEL/rachel"):
     print("RACHEL directory found at /media/RACHEL/rachel, using that as the base directory.")
     rachel_dir = "/media/RACHEL/rachel"
-elif exists("/media/usb/rachel"):
+elif exists("/media/usb"):
     print("RACHEL directory found at /media/usb, using that as the base directory.")
     rachel_dir = "/media/usb/rachel"
 else:
@@ -353,16 +369,6 @@ print("Add Kiwix Success")
 kiwix_version = "3.2.0"
 sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to record kiwix version.")
 
-print("Removing /usr/bin/mount /dev/sda1 /media/usb  crontab...")
-file_path = "/etc/crontab"
-with open(file_path, "r+") as f:
-    lines = [line for line in f if line.strip() != "@reboot root /usr/bin/mount /dev/sda1 /media/usb"]
-    f.seek(0)
-    f.writelines(lines)
-    f.truncate()
-print("Removing done.")
-sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 /media/usb\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
-print("Add mount USB Success")
 
 # Install RACHEL content library
 #print("Kill existing kiwix-serve process if running...") - already in rachelKiwixStart.sh
@@ -370,8 +376,6 @@ print("Add mount USB Success")
 print("Starting kiwix-serve daemon via "+rachel_dir+"/scripts/rachelKiwixStart.sh")
 sudo("nohup "+rachel_dir+"/scripts/rachelKiwixStart.sh > /dev/null 2>&1 &") or die("Unable to start kiwix-serve daemon via rachelKiwixStart.sh script.")
 print("Reboot the device to start kiwix-serve daemon...")
-
-
 
 
 sudo("mkdir -p "+rachel_dir+"/modules") or die("Unable to create directory ("+rachel_dir+"/modules).")
