@@ -6,7 +6,7 @@ rachelpiOS
 Orange Pi Zero 3 has problems with SD card corruption
 use an external SDA device to byspass this problem
 
-Creating USB /media/usb mountable storage
+Creating USB /var/www mountable storage
 
 `lsblk` - know the sda address
 
@@ -14,9 +14,9 @@ Creating USB /media/usb mountable storage
 
 `sudo mkfs.ext4 -L media /dev/sda1` - this will take long
 
-`sudo mkdir -p /media/usb`
+`sudo mkdir -p /var/www`
 
-`sudo mount /dev/sda1 /media/usb`
+`sudo mount /dev/sda1 /var/www`
 
 `reboot`
 
