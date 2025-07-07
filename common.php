@@ -528,20 +528,20 @@ EOT;
 #define("RACHELPI_MODPATH", "/var/www/rachel/modules");
 
 if (file_exists("/srv/rachel/www/modules")) {
-    echo "RACHEL directory found at /srv/rachel/www/modules, using that as the base directory.\n";
+    #echo "RACHEL directory found at /srv/rachel/www/modules, using that as the base directory.\n";
     $rachel_dir = "/srv/rachel/www/modules";
 } elseif (file_exists("/media/RACHEL/rachel/modules")) {
-    echo "RACHEL directory found at /media/RACHEL/rachel/modules, using that as the base directory.\n";
+    #echo "RACHEL directory found at /media/RACHEL/rachel/modules, using that as the base directory.\n";
     $rachel_dir = "/media/RACHEL/rachel/modules";
-} elseif (file_exists("/media/usb/modules")) {
-    echo "RACHEL directory found at /media/usb/modules, using that as the base directory.\n";
-    $rachel_dir = "/media/usb/modules";
+} elseif (file_exists("/media/usb/rachel")) {
+    #echo "RACHEL directory found at /media/usb/rachel, using that as the base directory.\n";
+    $rachel_dir = "/media/usb/rachel";
 } else {
-    echo "No RACHEL directory found, using /var/www/modules as the base directory.\n";
+    #echo "No RACHEL directory found, using /var/www/modules as the base directory.\n";
     $rachel_dir = "/var/www/modules";
 }
 
-define("RACHELPI_MODPATH", "/var/www/modules");
+define("RACHELPI_MODPATH", "$rachel_dir/modules");
 
 function is_rachelpi() {
     return is_dir(RACHELPI_MODPATH) || file_exists("/tmp/fake-rachelpi");
@@ -896,7 +896,7 @@ function showip () {
 
 # restart kiwix so it sees what modules are visible/hidden
 function kiwix_restart() {
-    exec("sudo bash /var/kiwix/rachelKiwixStart.sh");
+    exec("sudo bash $rachel_dir/scripts/rachelKiwixStart.sh");
 }
 
 function show_local_content_link() {
