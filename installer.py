@@ -308,9 +308,9 @@ if exists("/srv/rachel/www"):
 elif exists("/media/RACHEL/rachel"):
     print("RACHEL directory found at /media/RACHEL/rachel, using that as the base directory.")
     rachel_dir = "/media/RACHEL/rachel"
-elif exists("/media/usb"):
+elif exists("/media/usb/rachel"):
     print("RACHEL directory found at /media/usb, using that as the base directory.")
-    rachel_dir = "/media/usb"
+    rachel_dir = "/media/usb/rachel"
 else:
     print("No RACHEL directory found, using /var/www as the base directory.")
     rachel_dir = "/var/www"
@@ -318,7 +318,8 @@ else:
 # Install web frontend
 print("Checking if RACHEL contentshell is already installed...")
 if not exists(""+rachel_dir+"/admin/admin.sqlite"):
-    print("Installing RACHEL contentshell...")
+    print("RACHEL "+rachel_dir+"/admin/admin.sqlite not found, installing...")
+    print("Deleting existing default web application ("+rachel_dir+")...")
     sudo("rm -fr "+rachel_dir+"") or die("Unable to delete existing default web application ("+rachel_dir+").")
     sudo("git clone --depth 1 https://github.com/rachelproject/contentshell "+rachel_dir+"") or die("Unable to download RACHEL web application.")
 
@@ -351,6 +352,17 @@ sudo("sh -c 'echo \"@reboot root "+rachel_dir+"/scripts/rachelKiwixStart.sh\" >>
 print("Add Kiwix Success")
 kiwix_version = "3.2.0"
 sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to record kiwix version.")
+
+print("Removing /usr/bin/mount /dev/sda1 /media/usb  crontab...")
+file_path = "/etc/crontab"
+with open(file_path, "r+") as f:
+    lines = [line for line in f if line.strip() != "@reboot root /usr/bin/mount /dev/sda1 /media/usb"]
+    f.seek(0)
+    f.writelines(lines)
+    f.truncate()
+print("Removing done.")
+sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 /media/usb\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
+print("Add mount USB Success")
 
 # Install RACHEL content library
 #print("Kill existing kiwix-serve process if running...") - already in rachelKiwixStart.sh
