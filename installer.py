@@ -257,18 +257,18 @@ if wifi_present() and args.install_wifi:
 
 
 #add mount USB   
-print("Removing /usr/bin/mount /dev/sda1 /media/usb  crontab...")
+print("Removing /usr/bin/mount /dev/sda1 /var/www  crontab...")
 file_path = "/etc/crontab"
 with open(file_path, "r+") as f:
-    lines = [line for line in f if line.strip() != "@reboot root /usr/bin/mount /dev/sda1 /media/usb"]
+    lines = [line for line in f if line.strip() != "@reboot root /usr/bin/mount /dev/sda1 /var/www"]
     f.seek(0)
     f.writelines(lines)
     f.truncate()
 print("Removing done.")
-sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 /media/usb\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
+sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 /var/www\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
 print("Add mount USB Success")
-print("Trying to mount /dev/sda1 to /media/usb...")
-sudo("/usr/bin/mount /dev/sda1 /media/usb")
+print("Trying to mount /dev/sda1 to /var/www...")
+sudo("/usr/bin/mount /dev/sda1 /var/www")
 
 
 # Setup LAN
@@ -302,9 +302,9 @@ sudo("sh -c 'sed -i \"s/upload_max_filesize *= *.*/upload_max_filesize = 9999999
 #######sudo("sh -c 'sed -i \"s/post_max_size *= *.*/post_max_size = 512M/\" /etc/php/7.4/apache2/php.ini'") or die("Unable to increase post_max_size in apache2/php.ini")
 sudo("sh -c 'sed -i \"s/post_max_size *= *.*/post_max_size = 99999999/\" /etc/php/"+php_version+"/apache2/php.ini'") or die("Unable to increase post_max_size in apache2/php.ini "+php_version+"")
 sudo("service apache2 stop") or die("Unable to stop Apache2.")
-#cp("files/default", "/etc/apache2/sites-available/contentshell.conf") or die("Unable to set default Apache site.")
+#####cp("files/default", "/etc/apache2/sites-available/contentshell.conf") or die("Unable to set default Apache site.")
 sudo("curl -o /etc/apache2/sites-available/contentshell.conf https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/contentshell.conf")
-sudo("sed -i 's|/var/www|/media/usb/rachel|g' /etc/apache2/sites-available/contentshell.conf") or die("Unable to set contentshell.conf to use /media/usb/rachel as the web root.")
+#####sudo("sed -i 's|/var/www|/media/usb/rachel|g' /etc/apache2/sites-available/contentshell.conf") or die("Unable to set contentshell.conf to use /media/usb/rachel as the web root.")
 sudo("a2dissite 000-default") or die("Unable to disable default Apache site.")
 sudo("a2ensite contentshell.conf") or die("Unable to enable contentshell Apache site.")
 cp("files/my.cnf", "/etc/mysql/my.cnf") or die("Unable to copy MySQL server configuration.")
@@ -324,9 +324,9 @@ if exists("/srv/rachel/www"):
 elif exists("/media/RACHEL/rachel"):
     print("RACHEL directory found at /media/RACHEL/rachel, using that as the base directory.")
     rachel_dir = "/media/RACHEL/rachel"
-elif exists("/media/usb"):
-    print("RACHEL directory found at /media/usb, using that as the base directory.")
-    rachel_dir = "/media/usb/rachel"
+elif exists("/var/www"):
+    print("RACHEL directory found at /var/www, using that as the base directory.")
+    rachel_dir = "/var/www"
 else:
     print("No RACHEL directory found, using /var/www as the base directory.")
     rachel_dir = "/var/www"
