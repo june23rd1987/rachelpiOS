@@ -15,8 +15,7 @@ Creating USB /var/www/modules mountable storage
 If error occurs:
 umount: /var/www: target is busy.
 
-`systemctl stop apache2`
-`systemctl stop kolibri`
+`systemctl stop apache2 && systemctl stop kolibri`
 
 
 
