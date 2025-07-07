@@ -186,10 +186,7 @@ print("Installing Git...")
 sudo("apt-get install -y git") or die("Unable to install Git.")
 print("Installing net-tools...")
 sudo("apt-get install -y net-tools") or die("Unable to install net-tools for ifconfig.")
-print("Installing goaccess...")
-sudo("apt-get install -y goaccess") or die("Unable to install goaccess for stats page.")
-print("Installing cloud-guest-utils...")
-sudo("apt-get install -y cloud-guest-utils") or die("Unable to install cloud-guest-utils for growpart.")
+
 
 
 # Clone the repo.
@@ -305,39 +302,52 @@ print("Installing web platform done.")
 
 
 
+if exists("/srv/rachel/www"):
+    print("RACHEL directory found at /srv/rachel/www, using that as the base directory.")
+    rachel_dir = "/srv/rachel/www"
+elif exists("/media/RACHEL/rachel"):
+    print("RACHEL directory found at /media/RACHEL/rachel, using that as the base directory.")
+    rachel_dir = "/media/RACHEL/rachel"
+elif exists("/media/usb"):
+    print("RACHEL directory found at /media/usb, using that as the base directory.")
+    rachel_dir = "/media/usb"
+else:
+    print("No RACHEL directory found, using /var/www as the base directory.")
+    rachel_dir = "/var/www"
+
 # Install web frontend
 print("Checking if RACHEL contentshell is already installed...")
-if not exists("/var/www/admin/admin.sqlite"):
+if not exists(""+rachel_dir+"/admin/admin.sqlite"):
     print("Installing RACHEL contentshell...")
-    sudo("rm -fr /var/www") or die("Unable to delete existing default web application (/var/www).")
-    sudo("git clone --depth 1 https://github.com/rachelproject/contentshell /var/www") or die("Unable to download RACHEL web application.")
+    sudo("rm -fr "+rachel_dir+"") or die("Unable to delete existing default web application ("+rachel_dir+").")
+    sudo("git clone --depth 1 https://github.com/rachelproject/contentshell "+rachel_dir+"") or die("Unable to download RACHEL web application.")
 
 
 
 
 # update PHP files for orangepi port
-sudo("chmod -R 0777 /var/www/art/") or die("Unable to chmod /var/www/art/ folder")
-sudo("curl -o /var/www/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
-sudo("curl -o /var/www/admin/do_tasks.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/do_tasks.php") or die("Unable to update do_tasks.php")
-sudo("curl -o /var/www/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
-sudo("curl -o /var/www/art/rachel_banner1.jpg https://github.com/june23rd1987/rachelpiOS/blob/master/rachel_banner.jpg?raw=true") or die("Unable to rachel_banner.jpg")
+sudo("chmod -R 0777 "+rachel_dir+"/art/") or die("Unable to chmod "+rachel_dir+"/art/ folder")
+sudo("curl -o "+rachel_dir+"/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
+sudo("curl -o "+rachel_dir+"/admin/do_tasks.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/do_tasks.php") or die("Unable to update do_tasks.php")
+sudo("curl -o "+rachel_dir+"/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
+sudo("curl -o "+rachel_dir+"/art/rachel_banner1.jpg https://github.com/june23rd1987/rachelpiOS/blob/master/rachel_banner.jpg?raw=true") or die("Unable to rachel_banner.jpg")
 
-sudo("curl -o /var/www/scripts/library.xml https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/library.xml") or die("Unable to library.xml")
-sudo("curl -o /var/www/scripts/empty.zim https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/empty.zim") or die("Unable to empty.zim")
-sudo("curl -o /var/www/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
+sudo("curl -o "+rachel_dir+"/scripts/library.xml https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/library.xml") or die("Unable to library.xml")
+sudo("curl -o "+rachel_dir+"/scripts/empty.zim https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/empty.zim") or die("Unable to empty.zim")
+sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
 
 
-sudo("curl -o /var/www/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
-sudo("chmod -R +x /var/www/scripts/") or die("Unable to chmod /var/www/scripts/ folder")
+sudo("curl -o "+rachel_dir+"/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
+sudo("chmod -R +x "+rachel_dir+"/scripts/") or die("Unable to chmod "+rachel_dir+"/scripts/ folder")
 print("Removing redundant kiwix data from crontab...")
 file_path = "/etc/crontab"
 with open(file_path, "r+") as f:
-    lines = [line for line in f if line.strip() != "@reboot root /var/www/scripts/rachelKiwixStart.sh"]
+    lines = [line for line in f if line.strip() != "@reboot root "+rachel_dir+"/scripts/rachelKiwixStart.sh"]
     f.seek(0)
     f.writelines(lines)
     f.truncate()
 print("Removing done.")
-sudo("sh -c 'echo \"@reboot root /var/www/scripts/rachelKiwixStart.sh\" >> /etc/crontab'") or die("Failed to write rachelKiwixStart-cron to /etc/crontab")
+sudo("sh -c 'echo \"@reboot root "+rachel_dir+"/scripts/rachelKiwixStart.sh\" >> /etc/crontab'") or die("Failed to write rachelKiwixStart-cron to /etc/crontab")
 print("Add Kiwix Success")
 kiwix_version = "3.2.0"
 sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to record kiwix version.")
@@ -345,18 +355,18 @@ sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to rec
 # Install RACHEL content library
 #print("Kill existing kiwix-serve process if running...") - already in rachelKiwixStart.sh
 #sudo("sh -c 'killall /usr/bin/kiwix-serve'") or die("Unable to kill existing kiwix-serve process.") - already in rachelKiwixStart.sh
-print("Starting kiwix-serve daemon via /var/www/scripts/rachelKiwixStart.sh")
-sudo("nohup /var/www/scripts/rachelKiwixStart.sh > /dev/null 2>&1 &") or die("Unable to start kiwix-serve daemon via rachelKiwixStart.sh script.")
+print("Starting kiwix-serve daemon via "+rachel_dir+"/scripts/rachelKiwixStart.sh")
+sudo("nohup "+rachel_dir+"/scripts/rachelKiwixStart.sh > /dev/null 2>&1 &") or die("Unable to start kiwix-serve daemon via rachelKiwixStart.sh script.")
 print("Reboot the device to start kiwix-serve daemon...")
 
 
 
 
-sudo("mkdir -p /var/www/modules") or die("Unable to create directory (/var/www/modules).")
-sudo("chmod -R 0777 /var/www/modules/") or die("Unable to chmod /var/www/art/ folder")
+sudo("mkdir -p "+rachel_dir+"/modules") or die("Unable to create directory ("+rachel_dir+"/modules).")
+sudo("chmod -R 0777 "+rachel_dir+"/modules/") or die("Unable to chmod "+rachel_dir+"/art/ folder")
 
 
-sudo("chown -R www-data.www-data /var/www") or die("Unable to set permissions on RACHEL web application (/var/www).")
+sudo("chown -R www-data.www-data "+rachel_dir+"") or die("Unable to set permissions on RACHEL web application ("+rachel_dir+").")
 sudo("sh -c \"umask 0227; echo 'www-data ALL=(ALL) NOPASSWD: /sbin/shutdown' >> /etc/sudoers.d/www-shutdown\"") or die("Unable to add www-data to sudoers for web shutdown")
 sudo("usermod -a -G adm www-data") or die("Unable to add www-data to adm group (so stats.php can read logs)")
 
