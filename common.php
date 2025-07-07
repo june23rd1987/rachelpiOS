@@ -527,6 +527,20 @@ EOT;
 #-------------------------------------------
 #define("RACHELPI_MODPATH", "/var/www/rachel/modules");
 
+if (file_exists("/srv/rachel/www/modules")) {
+    echo "RACHEL directory found at /srv/rachel/www/modules, using that as the base directory.\n";
+    $rachel_dir = "/srv/rachel/www/modules";
+} elseif (file_exists("/media/RACHEL/rachel/modules")) {
+    echo "RACHEL directory found at /media/RACHEL/rachel/modules, using that as the base directory.\n";
+    $rachel_dir = "/media/RACHEL/rachel/modules";
+} elseif (file_exists("/media/usb/modules")) {
+    echo "RACHEL directory found at /media/usb/modules, using that as the base directory.\n";
+    $rachel_dir = "/media/usb/modules";
+} else {
+    echo "No RACHEL directory found, using /var/www/modules as the base directory.\n";
+    $rachel_dir = "/var/www/modules";
+}
+
 define("RACHELPI_MODPATH", "/var/www/modules");
 
 function is_rachelpi() {
