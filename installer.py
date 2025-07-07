@@ -327,11 +327,10 @@ with open(file_path, "r+") as f:
     f.writelines(lines)
     f.truncate()
 print("Removing done.")
-sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 "+rachel_dir+"\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
+sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 "+rachel_dir+"/modules\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
 print("Add mount USB Success")
 print("Trying to mount /dev/sda1 to "+rachel_dir+"/modules...")
 sudo("mount /dev/sda1 "+rachel_dir+"/modules")
-
 
 
 # Install web frontend
@@ -342,7 +341,6 @@ if not exists(""+rachel_dir+"/admin/admin.sqlite"):
     #sudo("rm -fr "+rachel_dir+"") or die("Unable to delete existing default web application ("+rachel_dir+").")
     sudo("rm -fr "+rachel_dir+"")
     sudo("git clone --depth 1 https://github.com/rachelproject/contentshell "+rachel_dir+"") or die("Unable to download RACHEL web application.")
-
 
 
 
