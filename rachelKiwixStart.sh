@@ -16,14 +16,16 @@ if [[ -e /media/RACHEL/rachel ]]; then
     rachelDir=/media/RACHEL/rachel
 elif [[ -e /srv/rachel/www ]]; then
     rachelDir=/srv/rachel/www
-elif [[ -e /var/www ]]; then
-    rachelDir=/var/www
+elif [[ -e /media/usb ]]; then #prioritize USB media for contents
+    rachelDir=/media/usb
+#elif [[ -e /var/www ]]; then
+#    rachelDir=/var/www
 else
     echo "Unknown system; exiting.";
 fi
 
 # library="/var/kiwix/library.xml"
-library="/var/www/scripts/library.xml"
+library="$rachelDir/scripts/library.xml"
 
 # Remove existing library
 rm -f $library
@@ -32,7 +34,7 @@ rm -f $library
 tmp=`mktemp`
 
 # Find all the zim files in the modules directoy
-ls $rachelDir/modules/*/data/content/*.zim* 2>/dev/null | sed 's/ /\n/g' > $tmp
+ls $rachelDir/modules/*/data/*/*.zim* 2>/dev/null | sed 's/ /\n/g' > $tmp
 
 # Remove extra files - we only need the first (.zim or .zimaa)
 sed -i '/zima[^a]/d' $tmp
@@ -52,6 +54,7 @@ for i in $(cat $tmp); do
     if [[ $? -ge 1 ]]; then
         echo "Couldn't add $zim to library";
     else
+        echo "Added $i to library";
         found=1
     fi
 done
@@ -62,22 +65,9 @@ rm -f $tmp
 # if there were no zims, we put in an "empty" zim so that
 # kiwix can at least show it's running and working
 if [[ ! $found ]]; then
-    /usr/bin/kiwix-manage $library add /var/www/scripts/empty.zim
+    /usr/bin/kiwix-manage $library add $rachelDir/scripts/empty.zim
 fi
 
 # Restart Kiwix
-echo "Restarting Kiwix server..."
 killall /usr/bin/kiwix-serve
-echo "Starting Kiwix server..."
-echo "Executing /usr/bin/kiwix-serve --daemon --port=81 --library $library"
 /usr/bin/kiwix-serve --daemon --port=81 --library $library > /dev/null
-echo "Kiwix server started."
-
-# Optionally, check if kiwix-serve is running
-if pgrep -f "kiwix-serve.*--port=81" > /dev/null; then
-    echo "Kiwix is running on port 81."
-else
-    echo "Warning: Kiwix may not have started successfully."
-fi
-
-
