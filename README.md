@@ -12,6 +12,14 @@ Creating USB /var/www/modules mountable storage
 
 `sudo umount /dev/sda1` - Unmount, just to be sure it is
 
+If error occurs:
+umount: /var/www: target is busy.
+
+`systemctl stop apache2`
+`systemctl stop kolibri`
+
+
+
 `sudo mkfs.ext4 -L media /dev/sda1` - this will take long
 
 `sudo mkdir -p /var/www/modules`
