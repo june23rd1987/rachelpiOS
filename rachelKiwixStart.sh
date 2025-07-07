@@ -16,10 +16,10 @@ if [[ -e /media/RACHEL/rachel ]]; then
     rachelDir=/media/RACHEL/rachel
 elif [[ -e /srv/rachel/www ]]; then
     rachelDir=/srv/rachel/www
-elif [[ -e /media/usb ]]; then #prioritize USB media for contents
-    rachelDir=/media/usb/rachel
-#elif [[ -e /var/www ]]; then
-#    rachelDir=/var/www
+#elif [[ -e /media/usb ]]; then #prioritize USB media for contents
+#    rachelDir=/media/usb/rachel
+elif [[ -e /var/www ]]; then
+    rachelDir=/var/www
 else
     echo "Unknown system; exiting.";
 fi
