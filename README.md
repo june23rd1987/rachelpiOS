@@ -14,9 +14,9 @@ Creating USB /var/www mountable storage
 
 `sudo mkfs.ext4 -L media /dev/sda1` - this will take long
 
-`sudo mkdir -p /var/www`
+`sudo mkdir -p /var/www/modules`
 
-`sudo mount /dev/sda1 /var/www`
+`sudo mount /dev/sda1 /var/www/modules`
 
 `reboot`
 
