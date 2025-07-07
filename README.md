@@ -17,9 +17,9 @@ Creating USB /media/usb mountable storage
 
 `sudo mount /dev/sda1 /media/usb`
 
+`reboot`
 
-
-
+`lsblk` - confirm if the sda has been mounted
 
 
 
