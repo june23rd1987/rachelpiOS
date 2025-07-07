@@ -3,6 +3,27 @@ rachelpiOS
 
 *NOTE: This install is tested to work with [`2016-05-27-raspbian-jessie`](https://www.armbian.com/orange-pi-zero-3/)
 
+Orange Pi Zero 3 has problems with SD card corruption
+use an external SDA device to byspass this problem
+
+Creating USB /media/usb mountable storage
+'lsblk' - know the sda address
+
+`sudo umount /dev/sda1` - Unmount, just to be sure it is
+
+`sudo mkfs.ext4 -L media /dev/sda1` - this will take long
+
+`sudo mkdir -p /media/usb`
+
+`sudo mount /dev/sda1 /media/usb`
+
+
+
+
+
+
+
+
 
 paste in the following command after reboot.
 
