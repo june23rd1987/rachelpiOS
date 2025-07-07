@@ -176,6 +176,7 @@ def cp(s, d):
 
 
 #Expand Files System MANUAL THIS
+sudo("apt-get install -y cloud-guest-utils") or die("Unable to install cloud-guest-utils for growpart and resize2fs.")
 #print("Expanding filesystem...")
 #sudo("sudo growpart /dev/mmcblk1 1")
 #sudo("sudo resize2fs /dev/mmcblk1p1") or die("Unable to resize filesystem.")
