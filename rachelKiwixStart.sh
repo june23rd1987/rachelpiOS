@@ -17,7 +17,7 @@ if [[ -e /media/RACHEL/rachel ]]; then
 elif [[ -e /srv/rachel/www ]]; then
     rachelDir=/srv/rachel/www
 elif [[ -e /media/usb ]]; then #prioritize USB media for contents
-    rachelDir=/media/usb
+    rachelDir=/media/usb/rachel
 #elif [[ -e /var/www ]]; then
 #    rachelDir=/var/www
 else
@@ -32,6 +32,7 @@ rm -f $library
 
 # Create tmp file for working on our zim file list
 tmp=`mktemp`
+
 
 # Find all the zim files in the modules directoy
 ls $rachelDir/modules/*/data/*/*.zim* 2>/dev/null | sed 's/ /\n/g' > $tmp
