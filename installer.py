@@ -62,6 +62,22 @@ def install_kolibri():
     sudo("pip3 install kolibri") or die("Unable to install Kolibri.")
 
     # Create a systemd service file for Kolibri
+    kolibri_servicex = """
+[Unit]
+Description=Kolibri offline learning platform
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+Environment=KOLIBRI_HOME={kolibri_content_dir}
+ExecStart=/usr/local/bin/kolibri start --foreground --port=9090
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+""".format(kolibri_content_dir=rachel_dir+"/modules/kolibri")
+    
     kolibri_service = """
 [Unit]
 Description=Kolibri offline learning platform
@@ -70,12 +86,14 @@ After=network.target
 [Service]
 User=www-data
 Group=www-data
+Environment=KOLIBRI_HOME=/var/www/modules/kolibri
 ExecStart=/usr/local/bin/kolibri start --foreground --port=9090
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 """
+    
     print("Writing Kolibri Service...")
     with open("/tmp/kolibri.service", "w") as f:
         f.write(kolibri_service)
@@ -84,11 +102,11 @@ WantedBy=multi-user.target
     sudo("systemctl enable kolibri") or die("Unable to enable Kolibri service.")
     sudo("systemctl start kolibri") or die("Unable to start Kolibri service.")
 
-    print("Kolibri installation complete. Access it at http://<device-ip>:8080/")
+    print("Kolibri installation complete. Access it at http://<device-ip>:9090/")
     sudo("sh -c 'echo 0.18.1 >/etc/kolibri-version'") or die("Unable to record kolibri version.")
     print("Kolibri Installed Successfully.")
     return True
-
+    
 
 
 def install_kiwix2():
@@ -318,7 +336,27 @@ else:
     print("No RACHEL directory found, using /var/www as the base directory.")
     rachel_dir = "/var/www"
 
-#add mount USB   
+rachelTempDir = "/tmp/rachel_temp"
+
+# Install web frontend
+print("Checking if RACHEL contentshell is already installed...")
+if not exists(""+rachel_dir+"/admin/admin.sqlite"):
+    print("RACHEL "+rachel_dir+"/admin/admin.sqlite not found, installing...")
+    print("Deleting existing default web application ("+rachel_dir+")...")
+    #sudo("rm -fr "+rachel_dir+"") or die("Unable to delete existing default web application ("+rachel_dir+").")
+    print("Unmounting existing USB modules directory ("+rachel_dir+"/modules)...")
+    sudo("umount "+rachel_dir+"/modules")
+    sudo("rm -rf "+rachel_dir+"")
+    #sudo("rm -rf "+rachelTempDir+"") or die("Unable to delete existing temporary RACHEL web application directory ("+rachelTempDir+").")
+    sudo("git clone --depth 1 https://github.com/rachelproject/contentshell "+rachel_dir+"") or die("Unable to download RACHEL web application to "+rachel_dir+".")
+
+
+
+
+#add mount USB  
+print("Creating "+rachel_dir+"/modules directory...")
+#sudo("mkdir -p "+rachel_dir+"/modules")
+sudo("mkdir -p "+rachel_dir+"/modules/kolibri/content")
 print("Removing /usr/bin/mount /dev/sda1 "+rachel_dir+"/modules  crontab...")
 file_path = "/etc/crontab"
 with open(file_path, "r+") as f:
@@ -331,17 +369,6 @@ sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 "+rachel_dir+"/modules
 print("Add mount USB Success")
 print("Trying to mount /dev/sda1 to "+rachel_dir+"/modules...")
 sudo("mount /dev/sda1 "+rachel_dir+"/modules")
-
-
-# Install web frontend
-print("Checking if RACHEL contentshell is already installed...")
-if not exists(""+rachel_dir+"/admin/admin.sqlite"):
-    print("RACHEL "+rachel_dir+"/admin/admin.sqlite not found, installing...")
-    print("Deleting existing default web application ("+rachel_dir+")...")
-    #sudo("rm -fr "+rachel_dir+"") or die("Unable to delete existing default web application ("+rachel_dir+").")
-    sudo("rm -fr "+rachel_dir+"")
-    sudo("git clone --depth 1 https://github.com/rachelproject/contentshell "+rachel_dir+"") or die("Unable to download RACHEL web application.")
-
 
 
 # update PHP files for orangepi port
