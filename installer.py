@@ -94,7 +94,7 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 """
-    kolibr_port = 9090
+    kolibri_port = "9090"
     kolibri_service = """
 [Unit]
 Description=Kolibri offline learning platform
@@ -118,7 +118,7 @@ WantedBy=multi-user.target
     sudo("systemctl enable kolibri") or die("Unable to enable Kolibri service.")
     sudo("systemctl start kolibri") or die("Unable to start Kolibri service.")
 
-    print("Kolibri installation complete. Access it at http://<device-ip>:"+kolibr_port+"/")
+    print("Kolibri installation complete. Access it at http://<device-ip>:"+kolibri_port+"/")
     sudo("sh -c 'echo 0.18.1 >/etc/kolibri-version'") or die("Unable to record kolibri version.")
     print("Kolibri Installed Successfully.")
     return True
@@ -391,6 +391,7 @@ sudo("mount /dev/sda1 "+rachel_dir+"/modules")
 sudo("chmod -R 0777 "+rachel_dir+"/art/") or die("Unable to chmod "+rachel_dir+"/art/ folder")
 sudo("curl -o "+rachel_dir+"/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
 sudo("curl -o "+rachel_dir+"/admin/do_tasks.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/do_tasks.php") or die("Unable to update do_tasks.php")
+sudo("curl -o "+rachel_dir+"/admin/version.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/version.php") or die("Unable to update version.php")
 sudo("curl -o "+rachel_dir+"/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
 sudo("curl -o "+rachel_dir+"/art/rachel_banner1.jpg https://github.com/june23rd1987/rachelpiOS/blob/master/rachel_banner.jpg?raw=true") or die("Unable to rachel_banner.jpg")
 
@@ -460,8 +461,6 @@ install_kolibri()
 #    cp("files/hosts", "/etc/hosts") or die("Unable to copy hosts file.")
 #    cp("files/hostname", "/etc/hostname") or die("Unable to copy hostname file.")
 #    sudo("hostnamectl set-hostname $(cat /etc/hostname)") or die("Unable to set hostname.")
-
-
 
 
 
