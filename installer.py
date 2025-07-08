@@ -78,7 +78,8 @@ Restart=always
 WantedBy=multi-user.target
 """.format(kolibri_content_dir=rachel_dir+"/modules/kolibri")
     
-    kolibri_service = """
+
+    kolibri_service3 = """
 [Unit]
 Description=Kolibri offline learning platform
 After=network.target
@@ -87,6 +88,21 @@ After=network.target
 User=www-data
 Group=www-data
 Environment=KOLIBRI_HOME=/var/www/modules/kolibri
+ExecStart=/usr/local/bin/kolibri start --foreground --port=9090
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+"""
+    kolibr_port = 9090
+    kolibri_service = """
+[Unit]
+Description=Kolibri offline learning platform
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
 ExecStart=/usr/local/bin/kolibri start --foreground --port=9090
 Restart=always
 
@@ -102,7 +118,7 @@ WantedBy=multi-user.target
     sudo("systemctl enable kolibri") or die("Unable to enable Kolibri service.")
     sudo("systemctl start kolibri") or die("Unable to start Kolibri service.")
 
-    print("Kolibri installation complete. Access it at http://<device-ip>:9090/")
+    print("Kolibri installation complete. Access it at http://<device-ip>:"+kolibr_port+"/")
     sudo("sh -c 'echo 0.18.1 >/etc/kolibri-version'") or die("Unable to record kolibri version.")
     print("Kolibri Installed Successfully.")
     return True
