@@ -738,7 +738,9 @@ function installmods($file, $install_server) {
     # (should we use getRelModDir instead? should we
     # replace the code there with this? testing needed
     # under different dirs, http, command line, etc.)
-    $destdir = dirname(dirname(__FILE__)) . "/modules/";
+    # $destdir = dirname(dirname(__FILE__)) . "/modules/";
+    $destdir = $rachel_dir . "/modules/";
+    
 
     # use rsync -z for remote hosts, not for LAN
     # (the CPU overhead of zip actually slows it down on a fast network)
@@ -879,13 +881,13 @@ function showip () {
         if (isset($match[1])) { echo "<b>$lang[server_address]</b>: $match[1]\n"; }
     } else if (preg_match("/^darwin/i", PHP_OS)) {
         # OSX is unix, but it's a little different
-        exec("/sbin/ifconfig", $output);
+        exec("/usr/sbin/ifconfig", $output);
         preg_match("/en0.+?inet (.+?) /", join("", $output), $match);
         if (isset($match[1])) { echo "<b>$lang[server_address]</b>: $match[1]\n"; }
     } else {
         # most likely linux based - so ifconfig should work
         # eth0/wlan for Rpi, CAP1&2, enp2s0/br-lan for CAP3
-        exec("/sbin/ifconfig", $output);
+        exec("/usr/sbin/ifconfig", $output);
         preg_match("/(?:eth0|enp2s0).+?inet addr:(.+?) /", join("", $output), $match);
         if (isset($match[1])) { echo "<b>LAN</b>: $match[1]\n"; }
         preg_match("/(?:wlan0|br\-lan).+?inet addr:(.+?) /", join("", $output), $match);
