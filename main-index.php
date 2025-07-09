@@ -77,6 +77,7 @@
     <?php
 //echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:8002/roundcube\" target=\"_blank\">WEBMAIL</a></li>";
 echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:9090/\" target=\"_blank\">KOLIBRI</a></li>";
+echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:81/\" target=\"_blank\">KIWIX</a></li>";
         if (show_local_content_link()) {
             echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:8090/\" target=\"_blank\">LOCAL CONTENT</a></li>";
         }
