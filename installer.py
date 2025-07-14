@@ -356,7 +356,8 @@ rachelTempDir = "/tmp/rachel_temp"
 
 # Install web frontend
 print("Checking if RACHEL contentshell is already installed...")
-if not exists(""+rachel_dir+"/admin/admin.sqlite"):
+admin_db_path = f"{rachel_dir}/admin/admin.sqlite"
+if not exists(admin_db_path) or (os.path.isfile(admin_db_path) and os.path.getsize(admin_db_path) == 0):
     print("RACHEL "+rachel_dir+"/admin/admin.sqlite not found, installing...")
     print("Deleting existing default web application ("+rachel_dir+")...")
     #sudo("rm -fr "+rachel_dir+"") or die("Unable to delete existing default web application ("+rachel_dir+").")
@@ -392,9 +393,9 @@ sudo("chmod -R 0777 "+rachel_dir+"/art/") or die("Unable to chmod "+rachel_dir+"
 sudo("curl -o "+rachel_dir+"/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
 sudo("curl -o "+rachel_dir+"/admin/do_tasks.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/do_tasks.php") or die("Unable to update do_tasks.php")
 sudo("curl -o "+rachel_dir+"/admin/version.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/version.php") or die("Unable to update version.php")
-sudo("curl -o "+rachel_dir+"/art/rachel_banner.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
+sudo("curl -o "+rachel_dir+"/art/rachel_banner2.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
 sudo("curl -o "+rachel_dir+"/art/rachel_banner1.jpg https://github.com/june23rd1987/rachelpiOS/blob/master/rachel_banner.jpg?raw=true") or die("Unable to rachel_banner.jpg")
-
+sudo("curl -o "+rachel_dir+"/art/global_hope.png https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/globalhope2020_logo_green.png")
 sudo("curl -o "+rachel_dir+"/scripts/library.xml https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/library.xml") or die("Unable to library.xml")
 sudo("curl -o "+rachel_dir+"/scripts/empty.zim https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/empty.zim") or die("Unable to empty.zim")
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
@@ -421,7 +422,7 @@ sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to rec
 #sudo("sh -c 'killall /usr/bin/kiwix-serve'") or die("Unable to kill existing kiwix-serve process.") - already in rachelKiwixStart.sh
 print("Starting kiwix-serve daemon via "+rachel_dir+"/scripts/rachelKiwixStart.sh")
 sudo("nohup "+rachel_dir+"/scripts/rachelKiwixStart.sh > /dev/null 2>&1 &") or die("Unable to start kiwix-serve daemon via rachelKiwixStart.sh script.")
-print("Reboot the device to start kiwix-serve daemon...")
+print("Done: nohup "+rachel_dir+"/scripts/rachelKiwixStart.sh > /dev/null 2>&1 &")
 
 
 sudo("mkdir -p "+rachel_dir+"/modules") or die("Unable to create directory ("+rachel_dir+"/modules).")
