@@ -67,79 +67,96 @@ a:visited { color: #649; }
 /*-------------------------------------------*/
 /* BEGIN index modules                       */
 /*-------------------------------------------*/
+
+
+
+
 .indexmodule {
-    padding: 10px;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #fff;
+    padding: 18px 24px;
+    border: none;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    background: linear-gradient(90deg, #e0f7fa 0%, #e8ffe9 100%);
+    box-shadow: 0 4px 18px rgba(46, 139, 192, 0.10), 0 1px 4px rgba(63, 167, 150, 0.08);
+    transition: box-shadow 0.2s, transform 0.2s;
 }
-/* clearfix rolled into indexmodule */
-.indexmodule:before { content: " "; display: table; }
-.indexmodule:after  { content: " "; display: table; clear: both; }
-.indexmodule { *zoom: 1; }
+
+.indexmodule:hover {
+    box-shadow: 0 8px 32px rgba(46,139,192,0.18), 0 2px 8px rgba(63,167,150,0.12);
+    transform: translateY(-2px) scale(1.01);
+}
 
 .indexmodule img {
     width: 120px;
-    margin-right: 10px;
-    border-radius: 5px;
+    margin-right: 18px;
+    border-radius: 8px;
     float: left;
+    box-shadow: 0 2px 8px rgba(46,139,192,0.12);
 }
 
-.indexmodule p { margin: 5px 0 0 130px; clear: right; }
-.indexmodule h2 { margin: 0; }
+.indexmodule h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.35em;
+    font-weight: 700;
+    color: #249e8c;
+    letter-spacing: 0.5px;
+}
+
+.indexmodule p {
+    margin: 8px 0 0 138px;
+    clear: right;
+    font-size: 1em;
+    color: #333;
+    line-height: 1.6;
+}
 
 .indexmodule form {
     float: right;
-    background: #ccc;
-    padding: 2px;
-    border-radius: 5px;
-    margin: 0 0 5px 0;
-    font-size: small;
+    background: #d0f0e0;
+    padding: 4px 10px;
+    border-radius: 8px;
+    margin: 0 0 8px 0;
+    font-size: 0.95em;
+    box-shadow: 0 1px 4px rgba(46,139,192,0.10);
 }
 
 .indexmodule ul {
-    width: 808px; /* defining max available width keeps float from */
-                  /* squishing multiple columns too closely */
-    margin: 10px 0 10px 130px;
-    font-size: small; 
+    width: 808px;
+    margin: 12px 0 12px 138px;
+    font-size: 0.98em;
     list-style-type: none;
     padding: 0;
 }
-.indexmodule ul.double {
-    column-count: 2; -webkit-column-count: 2; -moz-column-count: 2;
- }
-.indexmodule ul.triple {
-    column-count: 3; -webkit-column-count: 3; -moz-column-count: 3;
- }
-.indexmodule ul.quad   {
-    column-count: 4; -webkit-column-count: 4; -moz-column-count: 4;
- }
-.indexmodule .listhead {
-    font-weight: bold; font-size: 120%; margin: 5px 0 5px 0;
-}
 
-/* table only used for medlineplus */
-.indexmodule table {
-    width: 808px;
-    float: right;
-    font-size: small;
-    margin: 10px 0 10px 0;
-    padding: 0;
+.indexmodule .listhead {
+    font-weight: bold;
+    font-size: 1.12em;
+    margin: 8px 0 8px 0;
+    color: #249e8c;
 }
 
 .indexmodule td {
-    background: #eef;
-    border: 1px solid #ccc;
-    padding: 3px 2px;
+    background: #f0fcff;
+    border: 1px solid #b2dfdb;
+    padding: 5px 4px;
     text-align: center;
+    font-size: 0.98em;
 }
 
 .indexmodule .smallblurb {
-    font-size: x-small;
-    margin-left: 130px;
+    font-size: 0.85em;
+    margin-left: 138px;
     clear: both;
+    color: #666;
 }
+
+/* ...existing code...
+
+
+
+
+
+
 
 /*-------------------------------------------*/
 /* END for index modules                     */
@@ -153,40 +170,72 @@ a:visited { color: #649; }
     text-indent: -1000em;
 }
 
+
+
+
+
+
+
+
+/* ...existing code... */
+
 .menubar {
     width: 956px;
-    margin: auto;
-    border-radius: 5px;
-    background: #666;
-    padding: 2px; 
+    margin: 10px auto 0 auto;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #2e8bc0 0%, #3fa796 100%);
+    padding: 6px 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .menubar ul {
-    font-size: small;
-    font-weight: bold;
-    list-style-type:none;
-    margin:10;
-    padding:0px;
-    margin: auto;
+    display: flex;
+    gap: 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .menubar li {
-    display:inline;
-    float:left;
-    padding:5px;
-    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
 }
 
 .menubar a {
-    color:#fff;
-    margin:10px;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
     text-decoration: none;
+    font-family: inherit;
+    letter-spacing: 0.5px;
 }
 
-.menubar a:hover {
-    color:#ff3;
-    text-decoration: underline;
+.menubar a:hover, .menubar a:focus {
+    background: #444;
+    color: #ff3;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.10);
 }
+
+/* ...existing code... */
+
+
+
+
+
+
+
+
+
+
 
 #footer_right {
     float:right; 
@@ -204,3 +253,19 @@ a:visited { color: #649; }
 .cf:before { content: " "; display: table; }
 .cf:after  { content: " "; display: table; clear: both; }
 .cf { *zoom: 1; }
+
+#sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ccc;
+}
+
+.menubar.cf {
+    margin-bottom: 0;
+}
+
+body {
+    margin-top: 0;
+}
+
