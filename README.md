@@ -22,7 +22,7 @@ umount: /var/www: target is busy.
 
 `sudo mkfs.ext4 -L media /dev/sda1` - this will take long
 
-
+``
 
 `sudo mkdir -p /var/www/modules`
 
