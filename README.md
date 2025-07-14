@@ -19,6 +19,7 @@ umount: /var/www: target is busy.
 
 
 ***SKIP THIS IF USB IS CLONED***
+
 `sudo mkfs.ext4 -L media /dev/sda1` - this will take long
 
 
