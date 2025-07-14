@@ -399,7 +399,8 @@ sudo("curl -o "+rachel_dir+"/art/global_hope.png https://raw.githubusercontent.c
 sudo("curl -o "+rachel_dir+"/scripts/library.xml https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/library.xml") or die("Unable to library.xml")
 sudo("curl -o "+rachel_dir+"/scripts/empty.zim https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/empty.zim") or die("Unable to empty.zim")
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
-
+sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
+sudo("curl -o "+rachel_dir+"/css/style.css https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/style.css") or die("Unable to style.css")
 
 sudo("curl -o "+rachel_dir+"/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
 sudo("chmod -R +x "+rachel_dir+"/scripts/") or die("Unable to chmod "+rachel_dir+"/scripts/ folder")
