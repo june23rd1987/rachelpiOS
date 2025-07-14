@@ -3,9 +3,10 @@
 <html lang="<?php echo $lang['langcode'] ?>">
 <head>
 <meta charset="utf-8">
-<title>RACHEL - <?php echo $lang['home'] ?></title>
+<title>Global Hope - <?php echo $lang['home'] ?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Add this line -->
 <link rel="stylesheet" href="css/normalize-1.1.3.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=1.0">
 <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
@@ -76,7 +77,7 @@
     <li><a href="about.html" target="_self"><?php echo strtoupper($lang['about']) ?></a></li>
     <?php
 //echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:8002/roundcube\" target=\"_blank\">WEBMAIL</a></li>";
-echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:9090/\" target=\"_blank\">KOLIBRI</a></li>";
+//echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:9090/\" target=\"_blank\">KOLIBRI</a></li>";
 echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:81/\" target=\"_blank\">KIWIX</a></li>";
         if (show_local_content_link()) {
             echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:8090/\" target=\"_blank\">LOCAL CONTENT</a></li>";
