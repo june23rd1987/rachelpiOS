@@ -397,6 +397,7 @@ sudo("curl -o "+rachel_dir+"/admin/version.php https://raw.githubusercontent.com
 sudo("curl -o "+rachel_dir+"/art/rachel_banner2.jpg https://raw.githubusercontent.com/june23rd1987/rachelpiOS/34c01206d631e285cbbd2e53ce27768a2c8ecf43/rachel_banner.jpg") or die("Unable to rachel_banner.jpg")
 sudo("curl -o "+rachel_dir+"/art/rachel_banner1.jpg https://github.com/june23rd1987/rachelpiOS/blob/master/rachel_banner.jpg?raw=true") or die("Unable to rachel_banner.jpg")
 sudo("curl -o "+rachel_dir+"/art/global_hope.png https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/globalhope2020_logo_green.png")
+sudo("curl -o "+rachel_dir+"/favicon.ico https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/favicon.ico")
 sudo("curl -o "+rachel_dir+"/scripts/library.xml https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/library.xml") or die("Unable to library.xml")
 sudo("curl -o "+rachel_dir+"/scripts/empty.zim https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/empty.zim") or die("Unable to empty.zim")
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
