@@ -329,6 +329,7 @@ sudo("curl -o /etc/apache2/sites-available/contentshell.conf https://raw.githubu
 sudo("a2dissite 000-default") or die("Unable to disable default Apache site.")
 sudo("a2ensite contentshell.conf") or die("Unable to enable contentshell Apache site.")
 cp("files/my.cnf", "/etc/mysql/my.cnf") or die("Unable to copy MySQL server configuration.")
+sudo("curl -o /etc/mysql/mysql.cnf https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/mysql.cnf")
 #####sudo("a2enmod php7.4 proxy proxy_html rewrite") or die("Unable to enable Apache2 dependency modules2.")
 sudo("a2enmod proxy proxy_html rewrite") or die("Unable to enable Apache2 dependency modules2.")
 if exists("/etc/apache2/mods-available/xml2enc.load"):
