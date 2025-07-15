@@ -19,7 +19,7 @@ if [ -b "$DEVICE" ]; then
         fi
 
         # Mount the device
-        sudo mount "$DEVICE" "$MOUNT_POINT"
+        sudo mount "$DEVICE" -t ext4 "$MOUNT_POINT"
 
         # Check if the mount was successful
         if [ $? -eq 0 ]; then
