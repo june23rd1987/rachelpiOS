@@ -411,12 +411,12 @@ sudo("chmod -R +x "+rachel_dir+"/scripts/") or die("Unable to chmod "+rachel_dir
 print("Removing redundant kiwix data from crontab...")
 file_path = "/etc/crontab"
 with open(file_path, "r+") as f:
-    lines = [line for line in f if line.strip() != "@reboot root "+rachel_dir+"/scripts/rachelKiwixStart.sh"]
+    lines = [line for line in f if line.strip() != "@reboot root /bin/sh "+rachel_dir+"/scripts/startkiwix.sh"] #rachelKiwixStart.sh
     f.seek(0)
     f.writelines(lines)
     f.truncate()
 print("Removing done.")
-sudo("sh -c 'echo \"@reboot root "+rachel_dir+"/scripts/rachelKiwixStart.sh\" >> /etc/crontab'") or die("Failed to write rachelKiwixStart-cron to /etc/crontab")
+sudo("sh -c 'echo \"@reboot root /bin/sh "+rachel_dir+"/scripts/startkiwix.sh\" >> /etc/crontab'") or die("Failed to write startkiwix-cron to /etc/crontab")
 print("Add Kiwix Success")
 kiwix_version = "3.2.0"
 sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to record kiwix version.")
