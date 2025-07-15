@@ -403,6 +403,7 @@ sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23r
 sudo("curl -o "+rachel_dir+"/css/style.css https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/style.css") or die("Unable to style.css")
 
 sudo("curl -o "+rachel_dir+"/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
+sudo("curl -o "+rachel_dir+"/scripts/automount.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/automount.sh") or die("Unable to download automount.sh")
 sudo("chmod -R +x "+rachel_dir+"/scripts/") or die("Unable to chmod "+rachel_dir+"/scripts/ folder")
 print("Removing redundant kiwix data from crontab...")
 file_path = "/etc/crontab"
