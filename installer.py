@@ -404,6 +404,7 @@ sudo("curl -o "+rachel_dir+"/css/style.css https://raw.githubusercontent.com/jun
 
 sudo("curl -o "+rachel_dir+"/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
 sudo("curl -o "+rachel_dir+"/scripts/automount.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/automount.sh") or die("Unable to download automount.sh")
+sudo("curl -o "+rachel_dir+"/scripts/startkiwix.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/startkiwix.sh") or die("Unable to download startkiwix.sh")
 sudo("chmod -R +x "+rachel_dir+"/scripts/") or die("Unable to chmod "+rachel_dir+"/scripts/ folder")
 print("Removing redundant kiwix data from crontab...")
 file_path = "/etc/crontab"
@@ -421,7 +422,7 @@ sudo("sh -c 'echo "+kiwix_version+" >/etc/kiwix-version'") or die("Unable to rec
 
 # Install RACHEL content library
 #print("Kill existing kiwix-serve process if running...") - already in rachelKiwixStart.sh
-#sudo("sh -c 'killall /usr/bin/kiwix-serve'") or die("Unable to kill existing kiwix-serve process.") - already in rachelKiwixStart.sh
+#sudo("killall /usr/bin/kiwix-serve") or die("Unable to kill existing kiwix-serve process.") - already in rachelKiwixStart.sh
 print("Starting kiwix-serve daemon via "+rachel_dir+"/scripts/rachelKiwixStart.sh")
 sudo("nohup "+rachel_dir+"/scripts/rachelKiwixStart.sh > /dev/null 2>&1 &") or die("Unable to start kiwix-serve daemon via rachelKiwixStart.sh script.")
 print("Done: nohup "+rachel_dir+"/scripts/rachelKiwixStart.sh > /dev/null 2>&1 &")
