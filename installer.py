@@ -384,9 +384,9 @@ with open(file_path, "r+") as f:
     f.truncate()
 print("Removing done.")
 sudo("sh -c 'echo \"@reboot root /usr/bin/mount /dev/sda1 "+rachel_dir+"/modules\" >> /etc/crontab'") or die("Failed to write mount to /etc/crontab")
-print("Add mount USB Success")
-print("Trying to mount /dev/sda1 to "+rachel_dir+"/modules...")
-sudo("mount /dev/sda1 "+rachel_dir+"/modules")
+print("Add mount USB to crontab Success")
+#print("Trying to mount /dev/sda1 to "+rachel_dir+"/modules...")
+#sudo("mount /dev/sda1 "+rachel_dir+"/modules")
 
 
 # update PHP files for orangepi port
