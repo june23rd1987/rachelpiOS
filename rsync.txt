@@ -1,0 +1,39 @@
+rsync -chavzP --stats root@212.28.177.64:/var/www/modules/en-wikihow /var/www/modules/
+
+rsync -chavzP --stats root@212.28.177.64:/var/www/modules/en-gutenberg /var/www/modules/en-gutenberg
+
+DONE
+sudo rsync -Pavz --del rsync://dev.worldpossible.org/rachelmods/en-storybooks /var/www/modules/
+
+DONE
+sudo rsync -Pavz --del rsync://dev.worldpossible.org/rachelmods/en-wikipedia_for_schools-static /var/www/modules/
+
+rsync -chavzP --stats root@212.28.177.64:/var/www/modules/en-wikipedia_for_schools-static /var/www/modules/
+
+
+
+
+
+RSYNC sda1 to sdb1
+
+sudo mkdir -p /var/www/modules
+sudo umount /dev/sda
+sudo mkfs.ext4 -L media /dev/sda1xxxx
+sudo mount -t ext4 /dev/sda1 /var/www/modules
+
+
+
+sudo mkdir -p /var/www/modules2
+sudo umount /dev/sdb1
+sudo mkfs.ext4 -L media256 /dev/sdb1
+sudo mount -t ext4 /dev/sdb1 /var/www/modules2
+
+
+
+sudo mkdir -p /var/www/modules
+sudo mount -t ext4 /dev/sda1 /var/www/modules
+sudo mkdir -p /var/www/modules2
+sudo mount -t ext4 /dev/sdb1 /var/www/modules2
+rsync -chavzP --stats /var/www/modules /var/www/modules2
+
+
