@@ -62,6 +62,20 @@ Please note that this will change the 'pi' user's password to: rachel
 
 All default username and passwords will be rachel/rachel unless noted differently.
 
+
+
+
+***FREEZE OS***
+1.	Install overlayroot (tiny Canonical helper).
+sudo apt install overlayroot -y     # ~30 kB
+2.	Edit the config.
+echo 'overlayroot="tmpfs:swap=1"' | sudo tee /etc/overlayroot.local.conf
+sudo update-initramfs -u
+sudo reboot
+3.	Verify after reboot:
+mount | grep ' / '
+
+
 Additional Details
 ---------------
 Please check out the Wiki: https://github.com/rachelproject/rachelpiOS/wiki
