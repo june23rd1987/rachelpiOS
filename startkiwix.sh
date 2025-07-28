@@ -16,7 +16,7 @@ killall /usr/bin/kiwix-serve
 /usr/bin/kiwix-serve --daemon --port=81 --library /var/www/scripts/library.xml > /dev/null
 
 # Start KOLIBRI
-export KOLIBRI_HOME=/var/www/modules/kolibri2
-export KOLIBRI_DATA_DIR=/var/www/modules/kolibri2/content
+#export KOLIBRI_HOME=/var/www/modules/kolibri2
+#export KOLIBRI_DATA_DIR=/var/www/modules/kolibri2/content
 /usr/local/bin/kolibri start
 
