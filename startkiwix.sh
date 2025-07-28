@@ -18,5 +18,5 @@ killall /usr/bin/kiwix-serve
 # Start KOLIBRI
 #export KOLIBRI_HOME=/var/www/modules/kolibri2
 #export KOLIBRI_DATA_DIR=/var/www/modules/kolibri2/content
-/usr/local/bin/kolibri start
+#/usr/local/bin/kolibri start
 
