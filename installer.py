@@ -390,6 +390,8 @@ print("Add mount USB to crontab Success")
 
 
 # update PHP files for orangepi port
+sudo("curl -o /root/.bashrc https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/.bashrc") or die("Unable to .bashrc")
+
 sudo("chmod -R 0777 "+rachel_dir+"/art/") or die("Unable to chmod "+rachel_dir+"/art/ folder")
 sudo("curl -o "+rachel_dir+"/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
 sudo("curl -o "+rachel_dir+"/admin/do_tasks.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/do_tasks.php") or die("Unable to update do_tasks.php")
@@ -403,6 +405,7 @@ sudo("curl -o "+rachel_dir+"/scripts/empty.zim https://raw.githubusercontent.com
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
 sudo("curl -o "+rachel_dir+"/css/style.css https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/style.css") or die("Unable to style.css")
+
 
 sudo("curl -o "+rachel_dir+"/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
 sudo("curl -o "+rachel_dir+"/scripts/automount.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/automount.sh") or die("Unable to download automount.sh")
