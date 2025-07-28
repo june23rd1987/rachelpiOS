@@ -17,5 +17,5 @@ killall /usr/bin/kiwix-serve
 
 # Start KOLIBRI
 export KOLIBRI_HOME=/var/www/modules/kolibri2
-/usr/bin/kolibri start
+/usr/local/bin/kolibri start
 
