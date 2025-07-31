@@ -21,6 +21,11 @@ SHELL=/bin/sh
 47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
 52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
 #
+
 @reboot root /opt/linux-router/lnxrouter --ap wlan0 DreamCube -p DreamCube -g 10.10.10.10 --no-virt --daemon
-@reboot root /bin/sh /var/www/scripts/startkiwix.sh
 @reboot root /usr/bin/mount /dev/sda1 /var/www/modules
+@reboot root /bin/sh /var/www/scripts/startkiwix.sh
+# @reboot root /bin/sh /var/www/scripts/start_kolibri.sh
+@reboot root sleep 10 && export KOLIBRI_HOME=/var/www/modules/kolibri && /usr/local/bin/kolibri start >> /var/log/kolibri2-cron.log 2>&1
+
+
