@@ -759,6 +759,7 @@ function installmods($file, $install_server) {
 
         foreach ($sorted as $moddir) {
 
+            //$cmd = "rsync -Pav$zip --no-links --no-o --no-g rsync://$install_server/rachelmods/$moddir $destdir";
             $cmd = "rsync -Pav$zip rsync://$install_server/rachelmods/$moddir $destdir";
 
             # insert a task into the DB
@@ -921,4 +922,3 @@ function run_rsyncd() {
     }
 }
 
-?>
