@@ -23,8 +23,10 @@ SHELL=/bin/sh
 #
 
 @reboot root /opt/linux-router/lnxrouter --ap wlan0 DreamCube -p DreamCube -g 10.10.10.10 --no-virt --daemon
-@reboot root /usr/bin/mount -t exfat /dev/sda1 /var/www/modules -o uid=33,gid=33
+##### @reboot root /usr/bin/mount -t exfat -o utf8 /dev/sda1 /var/www/modules -o uid=33,gid=33
+@reboot root /usr/bin/mount /dev/sda1 /var/www/modules
 @reboot root /bin/sh /var/www/scripts/startkiwix.sh
-# @reboot root /bin/sh /var/www/scripts/start_kolibri.sh
+*/10 * * * * root /bin/sh /var/www/scripts/startkiwix.sh
+##### @reboot root /bin/sh /var/www/scripts/start_kolibri.sh
 @reboot root sleep 10 && export KOLIBRI_HOME=/var/www/modules/kolibri && /usr/local/bin/kolibri start >> /var/log/kolibri2-cron.log 2>&1
 
