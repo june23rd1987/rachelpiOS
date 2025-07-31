@@ -395,6 +395,7 @@ print("Add mount USB to crontab Success")
 ###sudo("curl -o /root/.bashrc https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/.bashrc") or die("Unable to .bashrc")
 
 sudo("chmod -R 0777 "+rachel_dir+"/art/") or die("Unable to chmod "+rachel_dir+"/art/ folder")
+sudo("curl -o "+rachel_dir+"/admin/upload_common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/upload_common.php") or die("Unable to update upload_common.php")
 sudo("curl -o "+rachel_dir+"/admin/storage.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/storage.php") or die("Unable to update storage.php")
 sudo("curl -o "+rachel_dir+"/admin/background.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/background.php") or die("Unable to update background.php")
 sudo("curl -o "+rachel_dir+"/admin/common.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/common.php") or die("Unable to update common.php")
