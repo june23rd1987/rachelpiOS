@@ -10,6 +10,7 @@ if (isset($_GET['getRemoteModuleList'])) {
 
 } else if (isset($_GET['getLocalModuleList'])) {
     getLocalModuleList();
+    //var_dump($fsmods);
 
 } else if (isset($_GET['addModules'])) {
     addModules($_GET['addModules']);
@@ -95,21 +96,29 @@ function getRemoteModuleList() {
     $json = file_get_contents("http://" . APIHOST . "/cgi/updatecheck.pl");
     header('Content-Type: application/json');
     echo $json;
+    file_put_contents("/var/www/modules/remote_modules.json", $json);
     exit;
 }
 
+
 function getLocalModuleList() {
+    //global $fsmods, $dbmods;
     $fsmods = getmods_fs();
     $dbmods = getmods_db();
+    $remote_mods = json_decode(file_get_contents("/var/www/modules/remote_modules.json"), true);
+    //var_dump($remote_mods);
     foreach (array_keys($dbmods) as $moddir) {
         if (isset($fsmods[$moddir])) {
             $fsmods[$moddir]['position'] = $dbmods[$moddir]['position'];
             $fsmods[$moddir]['hidden'] = $dbmods[$moddir]['hidden'];
+            //exec("du -sh /var/www/modules/".$dbmods[$moddir]['moddir'], $outputsize, $rval);
+            $fsmods[$moddir]['ksize'] = $remote_mods[$moddir]['ksize'] ?? "nosize";
         }
     }
     # sorting function in the common.php module
     uasort($fsmods, 'bypos');
     header('Content-Type: application/json');
+    //var_dump($fsmods);
     echo json_encode(array_values($fsmods)); # , JSON_PRETTY_PRINT); # this only works in 5.4+ -- RACHEL-PLUS has 5.3.10
     exit;
 }
