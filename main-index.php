@@ -145,6 +145,10 @@
     <ul>
     <li><a href="index.php" target="_self"><?php echo strtoupper($lang['home']) ?></a></li>
     <li><a href="about.html" target="_self"><?php echo strtoupper($lang['about']) ?></a></li>
+    <?php
+        echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:81/\" target=\"_blank\">KIWIX</a></li>";
+        echo "<li><a href=\"http://$_SERVER[SERVER_ADDR]:8080/en/learn/#/home/\" target=\"_blank\">KOLIBRI</a></li>";
+    ?>
     </ul>
 </div>
 
