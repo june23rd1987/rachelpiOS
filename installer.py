@@ -412,7 +412,7 @@ sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23r
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
 sudo("curl -o "+rachel_dir+"/css/style.css https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/style.css") or die("Unable to style.css")
 sudo("mkdir -p "+rachel_dir+"/modules/en-kolibri-index") or die("Unable to mkdir "+rachel_dir+"/modules/en-kolibri-index folder")
-sudo("curl -o "+rachel_dir+"/css/style.css https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/kolibri_rachel-index.php") or die("Unable to kolibri_rachel-index.php")
+sudo("curl -o "+rachel_dir+"/modules/en-kolibri-index/rachel-index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/kolibri_rachel-index.php") or die("Unable to kolibri_rachel-index.php")
 
 
 sudo("curl -o "+rachel_dir+"/scripts/rachelKiwixStart.sh https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/rachelKiwixStart.sh") or die("Unable to download rachelKiwixStart.sh")
