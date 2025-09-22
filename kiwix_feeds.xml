@@ -1,0 +1,248 @@
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:opds="http://opds-spec.org/2010/catalog">
+  <id>08ae31ac-3ce6-3f86-1d1b-257dc5552da9</id>
+  <title>All zims</title>
+  <updated>2025-09-22T14:56:01Z</updated>
+
+  <link rel="self" href="" type="application/atom+xml" />
+  <link rel="search" type="application/opensearchdescription+xml" href="/catalog/searchdescription.xml" />
+  <entry>
+    <id>urn:uuid:03c4bcb4-59c4-eacd-1b57-4a4121f8e283</id>
+    <title>Appropedia</title>
+    <updated>2021-03-02T00:00:00Z</updated>
+    <summary>Sharing knowledge to build rich &amp; sustainable lives</summary>
+    <language>eng</language>
+    <name>appropedia_en_all</name>
+    <flavour>_maxi</flavour>
+    <category></category>
+    <tags>appropedia;_pictures:yes;_videos:no;_details:yes;_ftindex:yes</tags>
+    <articleCount>14351</articleCount>
+    <mediaCount>24688</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/appropedia_en_all_maxi_2021-03/?size=48"
+          type="image/png;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/appropedia_en_all_maxi_2021-03" />
+    <author>
+      <name>Appropedia</name>
+    </author>
+    <publisher>
+      <name>Kiwix</name>
+    </publisher>
+    
+  </entry>
+  <entry>
+    <id>urn:uuid:0474d4a1-c018-5d14-bb92-5fa05f1c89ca</id>
+    <title>Wikiversity</title>
+    <updated>2021-03-17T00:00:00Z</updated>
+    <summary>From Wikiversity</summary>
+    <language>eng</language>
+    <name>wikiversity_en_all</name>
+    <flavour>_maxi</flavour>
+    <category>wikiversity</category>
+    <tags>wikiversity;_category:wikiversity;_pictures:yes;_videos:no;_details:yes;_ftindex:yes</tags>
+    <articleCount>57282</articleCount>
+    <mediaCount>104179</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/wikiversity_en_all_maxi_2021-03/?size=48"
+          type="image/png;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/wikiversity_en_all_maxi_2021-03" />
+    <author>
+      <name>Wikiversity</name>
+    </author>
+    <publisher>
+      <name>Kiwix</name>
+    </publisher>
+    
+  </entry>
+  <entry>
+    <id>urn:uuid:0788d38b-aaeb-5f69-47c3-a74df7e1ca2a</id>
+    <title>Wikibooks</title>
+    <updated>2021-03-04T00:00:00Z</updated>
+    <summary>From Wikibooks, open books for an open world</summary>
+    <language>eng</language>
+    <name>wikibooks_en_all</name>
+    <flavour>_maxi</flavour>
+    <category>wikibooks</category>
+    <tags>wikibooks;_category:wikibooks;_pictures:yes;_videos:no;_details:yes;_ftindex:yes</tags>
+    <articleCount>110260</articleCount>
+    <mediaCount>196642</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/wikibooks_en_all_maxi_2021-03/?size=48"
+          type="image/png;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/wikibooks_en_all_maxi_2021-03" />
+    <author>
+      <name>Wikibooks</name>
+    </author>
+    <publisher>
+      <name>Kiwix</name>
+    </publisher>
+    
+  </entry>
+  <entry>
+    <id>urn:uuid:0c487098-7cfc-3b87-da84-215454a1b76a</id>
+    <title>Basic Budgeting with Excel</title>
+    <updated>2023-01-11T00:00:00Z</updated>
+    <summary>-</summary>
+    <language>eng</language>
+    <name>keylearning_en_basic-budgeting-with-excel</name>
+    <flavour></flavour>
+    <category></category>
+    <tags>youtube;_videos:yes;_ftindex:no;_pictures:yes;_details:yes</tags>
+    <articleCount>13</articleCount>
+    <mediaCount>54</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/keylearning_en_basic-budgeting-with-excel_2023-01/?size=48"
+          type="image/png;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/keylearning_en_basic-budgeting-with-excel_2023-01" />
+    <author>
+      <name>Youtube Channel “Key Learning”</name>
+    </author>
+    <publisher>
+      <name>Kiwix</name>
+    </publisher>
+    
+  </entry>
+  <entry>
+    <id>urn:uuid:1f356573-add7-5d72-8347-ebbe49bcb26b</id>
+    <title>Mind Field</title>
+    <updated>2020-10-02T00:00:00Z</updated>
+    <summary>Our World is Amazing.   Questions? Ideas? Tweet me: http://www.twitter.com/tweetsauce  Vsauce was created by Michael Stevens in the summer of 2010.  Vsauce is...  Michael Stevens: Producer/Host of Vsauce1 Kevin Lieber: Producer/Host of Vsauce2 Jake Roper: Producer/Host of Vsauce3 Eric Langlay: VFX for Vsauce1/2/3 You: Thanks for watching!!!</summary>
+    <language>eng</language>
+    <name>mindfield_en_all</name>
+    <flavour></flavour>
+    <category></category>
+    <tags>youtube;_videos:yes;_ftindex:no;_pictures:yes;_details:yes</tags>
+    <articleCount>26</articleCount>
+    <mediaCount>57</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/mindfield_en_all/?size=48"
+          type="image/jpeg;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/mindfield_en_all" />
+    <author>
+      <name>Youtube Channel “Vsauce”</name>
+    </author>
+    <publisher>
+      <name>Kiwix</name>
+    </publisher>
+    
+  </entry>
+  <entry>
+    <id>urn:uuid:2fce4197-9d64-5370-dc62-5abf67d39a76</id>
+    <title>Wikiquote</title>
+    <updated>2023-02-17T00:00:00Z</updated>
+    <summary>From Wikiquote</summary>
+    <language>eng</language>
+    <name>wikiquote_en_all</name>
+    <flavour>maxi</flavour>
+    <category>wikiquote</category>
+    <tags>wikiquote;_category:wikiquote;_pictures:yes;_videos:no;_details:yes;_ftindex:yes</tags>
+    <articleCount>75832</articleCount>
+    <mediaCount>49759</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/wikiquote_en_all_maxi_2023-02/?size=48"
+          type="image/png;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/wikiquote_en_all_maxi_2023-02" />
+    <author>
+      <name>Wikiquote</name>
+    </author>
+    <publisher>
+      <name>Kiwix</name>
+    </publisher>
+    
+  </entry>
+  <entry>
+    <id>urn:uuid:3fbcdaae-c694-27ad-a8b4-b6f8811d8823</id>
+    <title>Wiktionary</title>
+    <updated>2023-02-26T00:00:00Z</updated>
+    <summary>The largest dictionary there is.</summary>
+    <language>eng</language>
+    <name>wiktionary_en_all</name>
+    <flavour>maxi</flavour>
+    <category>wiktionary</category>
+    <tags>wiktionary;_category:wiktionary;_pictures:yes;_videos:no;_details:yes;_ftindex:yes</tags>
+    <articleCount>7408798</articleCount>
+    <mediaCount>89363</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/wiktionary_en_all_maxi_2023-02/?size=48"
+          type="image/png;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/wiktionary_en_all_maxi_2023-02" />
+    <author>
+      <name>Wiktionary</name>
+    </author>
+    <publisher>
+      <name>Kiwix</name>
+    </publisher>
+    
+  </entry>
+  <entry>
+    <id>urn:uuid:4791a120-8ff0-0dd0-0c12-3b78384a29be</id>
+    <title>MDWiki Medical Encyclopedia</title>
+    <updated>2023-03-06T00:00:00Z</updated>
+    <summary>Healthcare articles curated by WikiProjectMed</summary>
+    <language>eng</language>
+    <name>mdwiki_en_all</name>
+    <flavour></flavour>
+    <category></category>
+    <tags>mdwiki;_details:yes;_ftindex:yes;_pictures:yes;_videos:yes</tags>
+    <articleCount>307816</articleCount>
+    <mediaCount>88077</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/mdwiki_en_all_2023-03/?size=48"
+          type="image/png;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/mdwiki_en_all_2023-03" />
+    <author>
+      <name>Offline</name>
+    </author>
+    <publisher>
+      <name>WikiProjectMed</name>
+    </publisher>
+    
+  </entry>
+  <entry>
+    <id>urn:uuid:4bf23013-ff76-0800-1e11-184d63a4bf7b</id>
+    <title>wikiHow: How-to instructions you can trust.</title>
+    <updated>2022-12-15T00:00:00Z</updated>
+    <summary>Learn how to do anything with wikiHow, the world&apos;s most popular how-to website. Easy, well-researched, and trustworthy instructions for everything you want to know.</summary>
+    <language>eng</language>
+    <name>wikihow_en_all</name>
+    <flavour></flavour>
+    <category>wikihow</category>
+    <tags>_category:wikihow;wikihow;_pictures:yes;_videos:yes;_ftindex:no;_details:yes</tags>
+    <articleCount>122518</articleCount>
+    <mediaCount>1852255</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/wikihow_en_maxi_2022-12/?size=48"
+          type="image/png;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/wikihow_en_maxi_2022-12" />
+    <author>
+      <name>wikiHow</name>
+    </author>
+    <publisher>
+      <name>openZIM</name>
+    </publisher>
+    
+  </entry>
+  <entry>
+    <id>urn:uuid:65c68796-c0ff-42d1-5a4b-3047c53f7a33</id>
+    <title>MathOverflow</title>
+    <updated>2023-01-24T00:00:00Z</updated>
+    <summary>Q&amp;A for professional mathematicians</summary>
+    <language>eng</language>
+    <name>mathoverflow.net_en_all</name>
+    <flavour></flavour>
+    <category>stack_exchange</category>
+    <tags>stack_exchange;_category:stack_exchange;_ftindex:no;_pictures:yes;_videos:yes;_details:yes</tags>
+    <articleCount>186570</articleCount>
+    <mediaCount>27930</mediaCount>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="/catalog/v2/illustration/mathoverflow.net_en_all_2023-01/?size=48"
+          type="image/png;width=48;height=48;scale=1"/>
+    <link type="text/html" href="/mathoverflow.net_en_all_2023-01" />
+    <author>
+      <name>Stack Exchange</name>
+    </author>
+    <publisher>
+      <name>Kiwix</name>
+    </publisher>
+    
+  </entry>
+</feed>
