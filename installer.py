@@ -408,6 +408,7 @@ sudo("curl -o "+rachel_dir+"/admin/art/login.png https://raw.githubusercontent.c
 sudo("curl -o "+rachel_dir+"/art/global_hope.png https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/globalhope2020_logo_green.png")
 sudo("curl -o "+rachel_dir+"/favicon.ico https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/favicon.ico")
 sudo("curl -o "+rachel_dir+"/scripts/library.xml https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/library.xml") or die("Unable to library.xml")
+sudo("curl -o "+rachel_dir+"/scripts/kiwix_feeds.xml https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/kiwix_feeds.xml") or die("Unable to kiwix_feeds.xml")
 sudo("curl -o "+rachel_dir+"/scripts/empty.zim https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/empty.zim") or die("Unable to empty.zim")
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/index.php") or die("Unable to index.php")
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
