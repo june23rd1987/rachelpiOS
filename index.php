@@ -13,30 +13,155 @@
   <!-- Header -->
   <header class="site-header">
     <div class="wrap header-inner">
-      <h1 class="brand">Global Hope</h1>
+
+
+      <a href="index.php" class="brand">
+      <img src="art/global_hope_brand_logo.png" alt="Global Hope Logo" style="height:40px;">
+      </a>
+
+
       <nav class="main-nav">
         <a href="index.php"><?php echo strtoupper($lang['home']) ?></a>
-        <a href="about.html"><?php echo strtoupper($lang['about']) ?></a>
+        <a href="about-dreamcube.php"><?php echo strtoupper($lang['about']) ?></a>
+
+
+        <div class="nav-dropdown">
+          <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:81/" target="_blank" class="dropdown-toggle">KIWIX</a>
+          <div class="dropdown-menu">
+
+          <?php
+
+
+            $feedXml = simplexml_load_file('/var/www/scripts/kiwix_feeds.xml');
+            if ($feedXml && isset($feedXml->entry)) {
+                foreach ($feedXml->entry as $entry) {
+                    $title = (string)$entry->title;
+                    $link = '';
+                    foreach ($entry->link as $l) {
+                        if ($l['type'] == 'text/html') {
+                            $link = (string)$l['href'];
+                            break;
+                        }
+                    }
+                    if ($title && $link) {
+                        echo '<a href="' . htmlspecialchars($link) . '" target="_blank">' . htmlspecialchars($title) . '</a>';
+                    }
+                }
+            }
+
+          
+
+
+          
+
+
+          echo "<a href=\"http://$_SERVER[SERVER_ADDR]:8080/en/learn/#/home/\" target=\"_blank\">KOLIBRI</a>";
+          
+
+          ?>
+          </div>
+        </div>
+
+
+        <div class="nav-dropdown">
+          <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/home/" target="_blank" class="dropdown-toggle">KOLIBRI</a>
+          <div class="dropdown-menu">
+            <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/topics/t/c9d7f950ab6b5a1199e3d6c10d7f0103/folders?last=HOME" target="_blank">Khan Academy</a>
+            <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/topics/t/0418cc231e9c5513af0fff9f227f7172/folders?last=HOME" target="_blank">Hello Channel</a>
+            <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/topics/t/197934f144305350b5820c7c4dd8e194/folders?last=HOME" target="_blank">PhET Interactive</a>
+            <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/topics/t/2d7b056d668a58ee9244ccf76108cbdb/folders?last=HOME" target="_blank">Book Dash</a>
+          </div>
+        </div>
         <?php
-        echo "<a href=\"http://$_SERVER[SERVER_ADDR]:81/\" target=\"_blank\">KIWIX</a>";
-        echo "<a href=\"http://$_SERVER[SERVER_ADDR]:8080/en/learn/#/home/\" target=\"_blank\">KOLIBRI</a>";
+
+        
         ?>
+
+
         <a href="admin/modules.php" class="admin-link"><?php echo $lang['admin'] ?></a>
       </nav>
       <button class="nav-toggle" aria-hidden="true">☰</button>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <h2 class="hero-title">Explore Knowledge, Anytime, Offline</h2>
-      <p class="hero-sub">A collection of educational resources accessible without internet.</p>
+<!-- Hero -->
+<section class="hero hero-animated">
+  <div class="hero-inner">
+    <h1 class="hero-title">Welcome to Global Hope</h1>
+    <p class="hero-sub">Where knowledge knows no boundaries, and learning is accessible to everyone — even offline.</p>
+    <button class="hero-cta" onclick="document.getElementById('platform-section').scrollIntoView({behavior: 'smooth'});">Learn More</button>
+  </div>
+</section>
+
+
+<section class="section platform-section" id="platform-section">
+  <div class="wrap">
+    <h2 class="section-title">Platform Integration</h2>
+    <div class="platform-row">
+      <div class="platform-item">
+        <img src="art/rachel.png" alt="Rachel" class="platform-thumb"  onclick="document.getElementById('search-section').scrollIntoView({behavior: 'smooth'});">
+        <p class="platform-name">Rachel</p>
+      </div>
+      <div class="platform-item">
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:81/" target="_blank">
+        <img src="art/kiwix.png" alt="Kiwix" class="platform-thumb">
+        </a>
+        <p class="platform-name">Kiwix</p>
+      </div>
+      <div class="platform-item">
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/home/" target="_blank">
+        <img src="art/kolibri.png" alt="Kolibri" class="platform-thumb">
+        </a>
+        <p class="platform-name">Kolibri</p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+
+
+<!-- Add this after the platform-section -->
+<section class="section resource-section" id="resource-section">
+  <div class="wrap">
+    <h2 class="section-title">Featured Modules</h2>
+    <div class="platform-row">
+      <div class="platform-item">
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:81/en_wikipedia_for_schools_2013/A/index.htm" target="_blank">
+          <img src="art/wikipedia.png" alt="Wikipedia" class="platform-thumb">
+        </a>
+        <p class="platform-name">Wikipedia</p>
+      </div>
+      <div class="platform-item">
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/topics/t/c9d7f950ab6b5a1199e3d6c10d7f0103/folders?last=HOME" target="_blank">
+          <img src="art/khan.png" alt="Khan Academy" class="platform-thumb">
+        </a>
+        <p class="platform-name">Khan Academy</p>
+      </div>
+      <div class="platform-item">
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/topics/t/0418cc231e9c5513af0fff9f227f7172/folders?last=HOME" target="_blank">
+          <img src="art/hellochannel.png" alt="Hello Channel" class="platform-thumb">
+        </a>
+        <p class="platform-name">Hello Channel</p>
+      </div>
+      <div class="platform-item">
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/topics/t/197934f144305350b5820c7c4dd8e194/folders?last=HOME" target="_blank">
+          <img src="art/phet.png" alt="PhET Interactive Simulations" class="platform-thumb">
+        </a>
+        <p class="platform-name">PhET Interactive</p>
+      </div>
+      <div class="platform-item">
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080/en/learn/#/topics/t/2d7b056d668a58ee9244ccf76108cbdb/folders?last=HOME" target="_blank">
+          <img src="art/bookdash.png" alt="Book Dash" class="platform-thumb">
+        </a>
+        <p class="platform-name">Book Dash</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <!-- Search -->
-  <section class="wrap section">
+  <section class="wrap section" id="search-section">
     <form class="search-form" action="#" method="get" style="display:flex;gap:8px;">
     <input name="q" type="text" placeholder="Search modules..." class="search-input" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>">
     <button type="submit" class="search-btn">Search</button>
@@ -117,6 +242,7 @@
               include $mod['fragment'];
               $fragmentContent = ob_get_clean();
               $fragmentContent = str_replace('<ul>', '<ul class="card-links">', $fragmentContent);
+              $fragmentContent = str_replace('wikipedia_en_all_maxi_2023-02/', 'en_wikipedia_for_schools_2013/A/index.htm', $fragmentContent);
               $fragmentContent = str_replace('<ul class="double">', '<ul class="card-links">', $fragmentContent);
               $fragmentContent = str_replace('<ul class=double>', '<ul class="card-links">', $fragmentContent);
               $fragmentContent = str_replace('<ul class="triple">', '<ul class="card-links">', $fragmentContent);
@@ -217,5 +343,47 @@
       document.querySelector('.main-nav').classList.toggle('open');
     });
   </script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const hero = document.querySelector(".hero-animated");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            hero.classList.add("play");
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(hero);
+  });
+  </script>
+<script>
+  document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Close other open dropdowns
+      document.querySelectorAll('.nav-dropdown.open').forEach(function(openDropdown) {
+        if (openDropdown !== toggle.parentElement) {
+          openDropdown.classList.remove('open');
+        }
+      });
+      // Toggle current dropdown
+      toggle.parentElement.classList.toggle('open');
+    });
+  });
+
+  // Optional: close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown.open').forEach(function(openDropdown) {
+        openDropdown.classList.remove('open');
+      });
+    }
+  });
+  </script>
+
 </body>
 </html>
