@@ -412,6 +412,7 @@ sudo("curl -o "+rachel_dir+"/scripts/empty.zim https://raw.githubusercontent.com
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/index.php") or die("Unable to index.php")
 sudo("curl -o "+rachel_dir+"/index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/main-index.php") or die("Unable to empty.zim")
 sudo("curl -o "+rachel_dir+"/css/style.css https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/style.css") or die("Unable to style.css")
+sudo("curl -o "+rachel_dir+"/css/style.css https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/offline.css") or die("Unable to offline.css")
 sudo("mkdir -p "+rachel_dir+"/modules/en-kolibri-index") or die("Unable to mkdir "+rachel_dir+"/modules/en-kolibri-index folder")
 sudo("curl -o "+rachel_dir+"/modules/en-kolibri-index/rachel-index.php https://raw.githubusercontent.com/june23rd1987/rachelpiOS/refs/heads/master/kolibri_rachel-index.php") or die("Unable to kolibri_rachel-index.php")
 
