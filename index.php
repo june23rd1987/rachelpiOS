@@ -16,7 +16,7 @@
 
 
       <a href="index.php" class="brand">
-      <img src="art/global_hope_brand_logo.png" alt="Global Hope Logo" style="height:40px;">
+      <img src="art/dream_cube_logo.png" alt="Global Hope Logo" style="height:40px;">
       </a>
 
 
@@ -44,18 +44,11 @@
                         }
                     }
                     if ($title && $link) {
-                        echo '<a href="' . htmlspecialchars($link) . '" target="_blank">' . htmlspecialchars($title) . '</a>';
+                        echo '<a href="http://'.$_SERVER['SERVER_ADDR'].':81' . htmlspecialchars($link) . '" target="_blank">' . htmlspecialchars($title) . '</a>';
                     }
                 }
             }
 
-          
-
-
-          
-
-
-          echo "<a href=\"http://$_SERVER[SERVER_ADDR]:8080/en/learn/#/home/\" target=\"_blank\">KOLIBRI</a>";
           
 
           ?>
@@ -87,16 +80,16 @@
 <!-- Hero -->
 <section class="hero hero-animated">
   <div class="hero-inner">
-    <h1 class="hero-title">Welcome to Global Hope</h1>
-    <p class="hero-sub">Where knowledge knows no boundaries, and learning is accessible to everyone — even offline.</p>
-    <button class="hero-cta" onclick="document.getElementById('platform-section').scrollIntoView({behavior: 'smooth'});">Learn More</button>
+    <h1 class="hero-title">Welcome to DreamCube</h1>
+    <p class="hero-sub">Empowering communities with education — anytime, anywhere, even without the internet.</p>
+    <button class="hero-cta" onclick="document.getElementById('platform-section').scrollIntoView({behavior: 'smooth'});">Start Now</button>
   </div>
 </section>
 
 
 <section class="section platform-section" id="platform-section">
   <div class="wrap">
-    <h2 class="section-title">Platform Integration</h2>
+    <h2 class="section-title">Explore Platforms</h2>
     <div class="platform-row">
       <div class="platform-item">
         <img src="art/rachel.png" alt="Rachel" class="platform-thumb"  onclick="document.getElementById('search-section').scrollIntoView({behavior: 'smooth'});">
@@ -123,7 +116,7 @@
 <!-- Add this after the platform-section -->
 <section class="section resource-section" id="resource-section">
   <div class="wrap">
-    <h2 class="section-title">Featured Modules</h2>
+    <h2 class="section-title">Explore Featured Modules</h2>
     <div class="platform-row">
       <div class="platform-item">
         <a href="http://<?php echo $_SERVER['SERVER_ADDR']; ?>:81/en_wikipedia_for_schools_2013/A/index.htm" target="_blank">
@@ -234,6 +227,16 @@
           # from the DB, we show what we found in the filesystem
           foreach (array_values($fsmods) as $mod) {
               if ($mod['hidden'] || !$mod['fragment']) { continue; }
+              if ($mod['moddir'] === 'en-imathas') { continue; } // Skip en-imathas module
+
+              $nonLinkedMods = array(
+                'en-asst_medical',
+                'en-causebooks',
+                'en-ck12'
+              );
+
+
+
               $dir  = $mod['dir'];
               $moddir  = $mod['moddir'];
               /////////////////////////////////////////////
@@ -304,6 +307,17 @@
                   },
                   $fragmentContent
               );
+
+              if (in_array($mod['moddir'], $nonLinkedMods)) {
+                    // Wrap the first <img ...> with the module link
+                    $fragmentContent = preg_replace(
+                        '/(<img[^>]+>)/i',
+                        '<a href="modules/' . $mod['moddir'] . '/" target="_blank">$1</a>',
+                        $fragmentContent,
+                        1 // Only the first image
+                    );
+              }
+
 
               $fragmentContent = preg_replace('/<[^>]*class="attribution"[^>]*>.*?<\/[^>]+>/is', '', $fragmentContent);
 
