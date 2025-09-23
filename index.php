@@ -79,6 +79,9 @@
 
 <!-- Hero -->
 <section class="hero hero-animated">
+  <div class="hero-image" style="text-align:center;">
+  <img src="art/dream_cube_transparent.png" alt="DreamCube Banner" style="width:100%;max-width:280px;border-radius:16px;">
+  </div>
   <div class="hero-inner">
     <h1 class="hero-title">Welcome to DreamCube</h1>
     <p class="hero-sub">Empowering communities with education — anytime, anywhere, even without the internet.</p>
