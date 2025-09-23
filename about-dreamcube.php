@@ -126,7 +126,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">© 2025 Global Hope. Powered by DreamCube.</div>
+    <div class="wrap">© 2025 DreamCube. Powered by Global Hope (Korea) and Panlock Corporation (Philippines)</div>
   </footer>
 </body>
 </html>
